@@ -25,19 +25,11 @@
             $( document ).ready(function() 
             {
                 const client = platformClient.ApiClient.instance;
-
-                client.config.refresh_access_token = false;
-                client.loginCodeAuthorizationGrant(clientId,clientSecret,authCode,redirectUri)
-                .then((authData) => {
-                    refreshToken = authData.refreshToken;
-                    tokenExpiryTime = authData.tokenExpiryTime;
-                    // Do authenticated things
-
-
+                
                 client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
 
                 // Manually set auth token or use loginImplicitGrant(...) or loginClientCredentialsGrant(...)
-                client.setAccessToken(refreshToken);
+                client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
 
                 let apiInstance = new platformClient.UsersApi();
 
@@ -54,12 +46,6 @@
                 .catch((err) => {
                     console.log("There was a failure calling getUsersMe");
                     console.error(err);
-                });
-
-            })
-                .catch((err) => {
-                    // Handle failure response
-                    console.log(err);
                 });
             });
         </script>        
