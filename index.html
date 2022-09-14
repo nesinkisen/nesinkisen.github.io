@@ -53,7 +53,7 @@
                 const usersApi = new platformClient.UsersApi();
 
                 // Authenticate
-                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://apps.mypurecloud.ie/admin/#/admin/oauth/authorizations/4661d5c1-d791-478f-b440-3cc36f9cb882")
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
                 .then(() => {
                     // Make request to GET /api/v2/users/me?expand=presence
                     return usersApi.getUsersMe({ 'expand': ["presence"] });
