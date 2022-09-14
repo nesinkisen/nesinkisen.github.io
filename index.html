@@ -10,7 +10,8 @@
         <button onclick="buyFunc()">Set5</button>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="//sdk-cdn.mypurecloud.com/client-apps/1.3.0/purecloud-client-app-sdk.js"></script>
-        <script src="https://sdk-cdn.mypurecloud.com/javascript/147.0.0/purecloud-platform-client-v2.min.js"></script>
+        <!-- <script src="https://sdk-cdn.mypurecloud.com/javascript/147.0.0/purecloud-platform-client-v2.min.js"></script> -->
+        <script src="https://sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>
 
         <script type="text/javascript">
             // Obtain a reference to the platformClient object
@@ -31,21 +32,39 @@
 
                 // Manually set auth token or use loginImplicitGrant(...) or loginClientCredentialsGrant(...)
                 //client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
-                client.loginClientCredentialsGrant("4661d5c1-d791-478f-b440-3cc36f9cb882","gZQRUyhp_looNBA2CmgeeKf1XbL-I0yddg4-kspJtC4")
-                .then(()=> {
-                    // Get current user details.
-                    apiInstance.getUsersMe(opts)
-                    .then((data) => {
-                        console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
-                    })
-                    .catch((err) => {
-                        console.log("There was a failure calling getUsersMe");
-                        console.error(err);
-                    });
+                // client.loginClientCredentialsGrant("4661d5c1-d791-478f-b440-3cc36f9cb882","gZQRUyhp_looNBA2CmgeeKf1XbL-I0yddg4-kspJtC4")
+                // .then(()=> {
+                //     // Get current user details.
+                //     apiInstance.getUsersMe(opts)
+                //     .then((data) => {
+                //         console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
+                //     })
+                //     .catch((err) => {
+                //         console.log("There was a failure calling getUsersMe");
+                //         console.error(err);
+                //     });
+                // })
+                // .catch((err) => {
+                // // Handle failure response
+                // console.log(err);
+                // });
+
+                // Create API instance
+                const usersApi = new platformClient.UsersApi();
+
+                // Authenticate
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", redirectUri)
+                .then(() => {
+                    // Make request to GET /api/v2/users/me?expand=presence
+                    return usersApi.getUsersMe({ 'expand': ["presence"] });
+                })
+                .then((userMe) => {
+                    // Handle successful result
+                    console.log(`Hello, ${userMe.name}!`);
                 })
                 .catch((err) => {
-                // Handle failure response
-                console.log(err);
+                    // Handle failure response
+                    console.log(err);
                 });
 
                 let apiInstance = new platformClient.UsersApi();
