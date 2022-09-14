@@ -1,0 +1,4 @@
+function buyFunc()
+{
+    alert("asd");
+}
