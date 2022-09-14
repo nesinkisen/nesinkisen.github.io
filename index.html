@@ -30,7 +30,23 @@
                 client.setEnvironment(platformClient.PureCloudRegionHosts.eu_west_1);
 
                 // Manually set auth token or use loginImplicitGrant(...) or loginClientCredentialsGrant(...)
-                client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
+                //client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
+                client.loginClientCredentialsGrant("4661d5c1-d791-478f-b440-3cc36f9cb882","gZQRUyhp_looNBA2CmgeeKf1XbL-I0yddg4-kspJtC4")
+                .then(()=> {
+                    // Get current user details.
+                    apiInstance.getUsersMe(opts)
+                    .then((data) => {
+                        console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
+                    })
+                    .catch((err) => {
+                        console.log("There was a failure calling getUsersMe");
+                        console.error(err);
+                    });
+                })
+                .catch((err) => {
+                // Handle failure response
+                console.log(err);
+                });
 
                 let apiInstance = new platformClient.UsersApi();
 
@@ -39,15 +55,7 @@
                 "integrationPresenceSource": "integrationPresenceSource_example" // String | Get your presence for a given integration. This parameter will only be used when presence is provided as an expand.
                 };
 
-                // Get current user details.
-                apiInstance.getUsersMe(opts)
-                .then((data) => {
-                    console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
-                })
-                .catch((err) => {
-                    console.log("There was a failure calling getUsersMe");
-                    console.error(err);
-                });
+
             });
         </script>        
     </body>
