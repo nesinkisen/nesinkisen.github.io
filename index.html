@@ -18,8 +18,8 @@
     
             $( document ).ready(function() {
     
-                //const platformClient = require("purecloud-platform-client-v2");
-                const platformClient = import("purecloud-platform-client-v2");
+                const platformClient = require("purecloud-platform-client-v2");
+                //const platformClient = require('platformClient');
 
                 const client = platformClient.ApiClient.instance;
                 client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
