@@ -26,7 +26,8 @@
             {
                 const client = platformClient.ApiClient.instance;
                 
-                client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
+                //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
+                client.setEnvironment(platformClient.PureCloudRegionHosts.eu_west_1);
 
                 // Manually set auth token or use loginImplicitGrant(...) or loginClientCredentialsGrant(...)
                 client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
