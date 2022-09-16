@@ -14,8 +14,9 @@
         <script src="https://sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>
 
         <script type="text/javascript">
-            // Obtain a reference to the platformClient object
-            const platformClient = require('platformClient');
+            //const platformClient = require('platformClient');
+            var platformClient = require('v2.users.d2dab52a-8588-4942-8d44-fd8a2aa5d4a2.presence');
+            var WebSocketClient = require('websocket').client;
         </script>
 
         <script>
@@ -30,25 +31,6 @@
                 //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
                 client.setEnvironment(platformClient.PureCloudRegionHosts.eu_west_1);
 
-                // Manually set auth token or use loginImplicitGrant(...) or loginClientCredentialsGrant(...)
-                //client.setAccessToken("77ecd1f8-7916-487e-aa8f-d50498916eec");
-                // client.loginClientCredentialsGrant("4661d5c1-d791-478f-b440-3cc36f9cb882","gZQRUyhp_looNBA2CmgeeKf1XbL-I0yddg4-kspJtC4")
-                // .then(()=> {
-                //     // Get current user details.
-                //     apiInstance.getUsersMe(opts)
-                //     .then((data) => {
-                //         console.log(`getUsersMe success! data: ${JSON.stringify(data, null, 2)}`);
-                //     })
-                //     .catch((err) => {
-                //         console.log("There was a failure calling getUsersMe");
-                //         console.error(err);
-                //     });
-                // })
-                // .catch((err) => {
-                // // Handle failure response
-                // console.log(err);
-                // });
-
                 // Create API instance
                 const usersApi = new platformClient.UsersApi();
 
@@ -60,7 +42,98 @@
                 })
                 .then((userMe) => {
                     // Handle successful result
-                    console.warn(`Hello, ${userMe.name}!`);
+                    //console.warn(`Hello, ${userMe.name}!`);
+
+                    // Get client credentials from environment variables
+                    const CLIENT_ID = process.env.GENESYS_CLOUD_CLIENT_ID;
+                    const CLIENT_SECRET = process.env.GENESYS_CLOUD_CLIENT_SECRET;
+                    const ORG_REGION = process.env.GENESYS_CLOUD_REGION; // eg. us_east_1
+
+                    const websocketClient = new WebSocketClient();
+
+                    // API instances
+                    const notificationsApi = new platformClient.NotificationsApi();
+
+                    // Additional configuration variables
+                    const queueId = '1e180920-4021-4127-b14e-9a28826f0b25';
+                    const subscriptionTopic = `v2.routing.queues.${queueId}.conversations`;
+
+                    // Define the callbacks for the websocket listener
+                    websocketClient.on('connect', connection => {
+                        console.log('WebSocket client connected and listening...');
+                        connection.on('message', message => {
+                            let data = JSON.parse(message.utf8Data);
+                            let topic = data.topicName;
+                            let eventBody = data.eventBody;
+
+                            if(topic == subscriptionTopic){
+                                let conversation = eventBody;
+                                let customer = conversation.participants
+                                                .filter(p => p.purpose == 'customer')[0];
+                                let agent = conversation.participants
+                                                .filter(p => p.purpose == 'agent')[0];
+
+                                // Some messages based on events that are happening on the queue
+                                if(customer && !agent){
+                                    console.log(`Customer ${customer.id} is waiting on queue.`);
+                                }
+                                if(agent && !agent.connectedTime){
+                                    console.log(`Agent ${agent.name} is being alerted for customer ${customer.id}`);
+                                }
+                                if(agent && agent.connectedTime){
+                                    console.log(`Agent ${agent.name} has accepted conversation with ${customer.id}`);
+                                }
+                                if(customer.endTime){
+                                    console.log(`Customer ${customer.id} disconnected from conversation`);
+                                }
+                            }
+
+                            // For heartbeats
+                            if(topic == 'channel.metadata'){
+                                console.log(eventBody.message);
+                            }
+                        });
+                    });
+
+
+                    websocketClient.on('connectFailed', function(error) {
+                        console.log('Connect Error: ' + error.toString());
+                    });
+
+                    // Set environment
+                    const environment = platformClient.PureCloudRegionHosts[ORG_REGION];
+                    if(environment) client.setEnvironment(environment);
+
+                    // Log in with Client Credentials
+                    client.loginClientCredentialsGrant(CLIENT_ID, CLIENT_SECRET)
+                    .then(() => {
+                        console.log('Authentication successful');
+
+
+                        return notificationsApi.postNotificationsChannels()
+                    })
+                    .then(data => {
+                        console.log('Channel created');
+
+
+                        let websocketUri = data.connectUri;
+                        let channelId = data.id;
+                        websocketClient.connect(websocketUri);
+
+                        // Add the subscription for queue events
+                        let topic = [{id: subscriptionTopic}];
+                        return notificationsApi.postNotificationsChannelSubscriptions(channelId, topic);
+                    })
+                    .then(data => {
+                        console.log('Subscribed to Queue');
+
+                    })
+                    .catch(e => console.error(e));
+
+
+                    // NOTE: This next line is a simple way to make sure the app runs 'forever'
+                    // In production you'd want the actual code running as a process/service
+                    setInterval(() => {}, 1 << 30);                    
                 })
                 .catch((err) => {
                     // Handle failure response
