@@ -72,14 +72,32 @@
                     });
                 }); 
 
-                     
+                function btnAvailable()
+                {
+                    apiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "6a3af858-942f-489d-9700-5f9bcdcdae9b" } })
+                        .then(() => {
+                            console.log('Presence set successfully');
+                        })
+                        .catch((err) => console.error(err));
+                }; 
+
+                        
+                function btnBusy()
+                {
+                    apiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "31fe3bac-dea6-44b7-bed7-47f91660a1a0" } })
+                        .then(() => {
+                            console.log('Presence set successfully');
+                        })
+                        .catch((err) => console.error(err));
+                };                         
             });
         </script>     
         
         <div class="bs-example">
             <!-- Button HTML (to Trigger Modal) -->
             <input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
-            <button onclick="buyFunc()">Set5</button>
+            <button onclick="btnAvailable()">Available</button>
+            <button onclick="btnBusy()">Busy</button>
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
