@@ -31,6 +31,7 @@
             var lifecycleStatusMessageTitle = 'Lifecycle Demo App';
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
+            var apiInstance;
     
             $( document ).ready(function() 
             {
@@ -58,7 +59,7 @@
                     console.log(err);
                 });
 
-                let apiInstance = new platformClient.UsersApi();
+                apiInstance = new platformClient.UsersApi();
 
                 let opts = { 
                 "expand": ["expand_example"], // [String] | Which fields, if any, to expand.
