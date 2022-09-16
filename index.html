@@ -32,6 +32,7 @@
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
             var apiInstance;
+            var userId;
     
             $( document ).ready(function() 
             {
@@ -42,7 +43,7 @@
 
                 // Create API instance
                 const usersApi = new platformClient.UsersApi();
-                var userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id          
+                userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id          
 
                 // Authenticate
                 client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
