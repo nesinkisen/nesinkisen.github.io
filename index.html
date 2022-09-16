@@ -32,6 +32,7 @@
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
             var apiInstance;
+            var presenceApiInstance;
             var userId;
     
             $( document ).ready(function() 
@@ -60,7 +61,8 @@
                     console.log(err);
                 });
 
-                apiInstance = new platformClient.UsersApi();
+                userApiInstance = new platformClient.UsersApi();
+                presenceApiInstance = new platformClient.PresenceApi();
 
                 let opts = { 
                 "expand": ["expand_example"], // [String] | Which fields, if any, to expand.
