@@ -40,7 +40,9 @@
                 client.setEnvironment(platformClient.PureCloudRegionHosts.eu_west_1);
 
                 // Create API instance
-                const usersApi = new platformClient.UsersApi();              
+                const usersApi = new platformClient.UsersApi();
+                var userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id
+                var apiInstance = new platformClient.PresenceApi();                
 
                 // Authenticate
                 client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
@@ -73,13 +75,12 @@
                        
             });
 
-             
+           
         </script>     
         
         <div class="bs-example">
             <!-- Button HTML (to Trigger Modal) -->
             <input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
-
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
