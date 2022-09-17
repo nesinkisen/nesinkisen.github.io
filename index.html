@@ -107,8 +107,10 @@
 
             function btnDisableStatus()
             {
-                document.getElementById("ember1276").style['pointer-events'] = 'none';
-                document.getElementById("ember1276").style.opacity = "0.5"; 
+
+
+                var button1 = document.getElementById("ember1276");
+                button1.setAttribute("pointer-events", "none");
             }; 
 
             function btnDisableAll()
