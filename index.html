@@ -86,7 +86,6 @@
                     .catch((err) => console.error(err));
             }; 
 
-                    
             function btnBusy()
             {
                 presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "31fe3bac-dea6-44b7-bed7-47f91660a1a0" } })
@@ -94,7 +93,16 @@
                         console.log('Presence set successfully');
                     })
                     .catch((err) => console.error(err));
-            };              
+            };    
+            
+            function btnPreparing()
+            {
+                presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "66bf7dc1-d443-4a64-bb88-022cd4a60c76" } })
+                    .then(() => {
+                        console.log('Presence set successfully');
+                    })
+                    .catch((err) => console.error(err));
+            };  
         </script>     
         
         <div class="bs-example">
@@ -102,8 +110,7 @@
             <input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
             <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
             <button type="button" onclick="btnBusy()" class="btn btn-danger">Busy</button>
-            <!-- <button onclick="btnAvailable()">Available</button>
-            <button onclick="btnBusy()">Busy</button> -->
+            <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
