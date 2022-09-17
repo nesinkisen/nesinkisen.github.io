@@ -31,7 +31,6 @@
             var lifecycleStatusMessageTitle = 'Lifecycle Demo App';
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
-            var apiInstance;
             var presenceApiInstance;
             var userId;
     
@@ -43,7 +42,7 @@
                 client.setEnvironment(platformClient.PureCloudRegionHosts.eu_west_1);
 
                 // Create API instance
-                const usersApi = new platformClient.UsersApi();
+                //const usersApi = new platformClient.UsersApi();
                 userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id          
 
                 // Authenticate
@@ -80,7 +79,7 @@
 
             function btnAvailable()
             {
-                apiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "6a3af858-942f-489d-9700-5f9bcdcdae9b" } })
+                presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "6a3af858-942f-489d-9700-5f9bcdcdae9b" } })
                     .then(() => {
                         console.log('Presence set successfully');
                     })
@@ -90,7 +89,7 @@
                     
             function btnBusy()
             {
-                apiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "31fe3bac-dea6-44b7-bed7-47f91660a1a0" } })
+                presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "31fe3bac-dea6-44b7-bed7-47f91660a1a0" } })
                     .then(() => {
                         console.log('Presence set successfully');
                     })
