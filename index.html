@@ -107,16 +107,22 @@
 
             function btnDisableStatus()
             {
+                var myElement = document.getElementById("ember1276");
 
-
-                var button1 = document.getElementById("ember1276");
-                button1.setAttribute("pointer-events", "none");
+                myElement.setAttribute('style', 'color: red');
             }; 
 
             function btnDisableAll()
             {
                 document.getElementById("ember1262").style.pointerEvents = "none";
                 document.getElementById("ember1262").style.opacity = "0.5"; 
+            }; 
+
+            function btnColor()
+            {
+                var myElement2 = document.getElementById("colorrr");
+
+                myElement2.setAttribute('style', 'color: red');
             }; 
         </script>     
         
@@ -128,6 +134,7 @@
             <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
             <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
+            <button type="button" id="colorrr" onclick="btnColor()">Test Button</button>
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
