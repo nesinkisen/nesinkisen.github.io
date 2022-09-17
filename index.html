@@ -103,6 +103,18 @@
                     })
                     .catch((err) => console.error(err));
             };  
+
+            function btnDisableStatus()
+            {
+                document.getElementById("ember1276").style.pointerEvents = "none";
+                document.getElementById("ember1276").style.opacity = "0.5"; 
+            }; 
+
+            function btnDisableAll()
+            {
+                document.getElementById("ember1262").style.pointerEvents = "none";
+                document.getElementById("ember1262").style.opacity = "0.5"; 
+            }; 
         </script>     
         
         <div class="bs-example">
@@ -111,6 +123,8 @@
             <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
             <button type="button" onclick="btnBusy()" class="btn btn-danger">Busy</button>
             <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
+            <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
+            <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
