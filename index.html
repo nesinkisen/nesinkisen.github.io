@@ -76,13 +76,13 @@
                 }); 
 
                 setTimeout(myGreeting, 25000);
-
-                function myGreeting() 
-                {
-                    document.getElementById("ember1262").style.pointerEvents = "none";
-                    document.getElementById("ember1262").style.opacity = "0.5";
-                }
                        
+            });
+
+            $( window ).on( "load", function() 
+            {
+                document.getElementById("ember1262").style.pointerEvents = "none";
+                document.getElementById("ember1262").style.opacity = "0.5";
             });
 
             function btnAvailable()
