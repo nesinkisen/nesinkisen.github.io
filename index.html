@@ -100,8 +100,10 @@
         <div class="bs-example">
             <!-- Button HTML (to Trigger Modal) -->
             <input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
-            <button onclick="btnAvailable()">Available</button>
-            <button onclick="btnBusy()">Busy</button>
+            <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
+            <button type="button" onclick="btnBusy()" class="btn btn-danger">Busy</button>
+            <!-- <button onclick="btnAvailable()">Available</button>
+            <button onclick="btnBusy()">Busy</button> -->
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
