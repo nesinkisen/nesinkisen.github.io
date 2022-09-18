@@ -76,6 +76,15 @@
                     });
                 }); 
                        
+                var frameWindow = document.getElementById("https://nesinkisen.github.io").contentWindow;
+
+                frameWindow.addEventListener("load"), function(){
+                    var doc = iframe.contentDocument || iframe.contentWindow.document;
+                    var target = doc.getElementById("https://apps.mypurecloud.ie");
+
+                    target.innerHTML = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                    console.warn(target.innerHTML);
+                }
             });
 
             function btnAvailable()
@@ -115,7 +124,7 @@
                 // parent.document.getElementById("ember1262").style.pointerEvents = "none";
                 // parent.document.getElementById("ember1262").style.opacity = "0.5"; 
 
-                var frame = document.getElementById('app-instance-ember1204');
+                var frame = document.getElementById('https://nesinkisen.github.io');
                 frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
             }; 
         </script>     
