@@ -106,7 +106,9 @@
 
             function btnDisableStatus()
             {
-                document.querySelector("div").closest(".navigation-action-bar list-unstyled actions")
+                document.getElementById("ember1262").onclick = function(e){
+                alert(e.target.parentNode.id);
+                }
             }; 
 
             function btnDisableAll()
