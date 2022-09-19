@@ -33,7 +33,9 @@
             var lifecycleStatusMessageTitle = 'Lifecycle Demo App';
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
+            var userApiInstance;
             var presenceApiInstance;
+            var conversationsApi;
             var userId;
     
             $( document ).ready(function() 
@@ -64,6 +66,7 @@
 
                 userApiInstance = new platformClient.UsersApi();
                 presenceApiInstance = new platformClient.PresenceApi();
+                conversationsApi = new platformClient.ConversationsApi();
 
                 let opts = { 
                 "expand": ["expand_example"], // [String] | Which fields, if any, to expand.
@@ -114,6 +117,21 @@
                     .catch((err) => console.error(err));
             };  
 
+			// Handle dial button click
+			function btnMakeCall()
+            {
+				// Create request body
+				let body = {
+					'phoneNumber':$('+905439708745').val()
+				};
+
+				// Invoke API
+				conversationsApi.postConversationsCalls(body).then(() => {
+					// Clear dialstring from text box
+					$('+905439708745').val('');
+				}).catch((err) => console.error(err));
+			};            
+
             function btnDisableStatus()
             {
                 $("table tbody tr td a").attr('href','https://apps.mypurecloud.ie');
@@ -135,6 +153,7 @@
             <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
             <button type="button" onclick="btnBusy()" class="btn btn-danger">Busy</button>
             <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
+            <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>
             <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
             
