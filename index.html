@@ -92,18 +92,44 @@
                 //     console.error(err);
                 // });      
                 
-                let body = {"start": "2022-06-01T11:00:00.000",
-                            "end": "2020-09-20T21:00:00.000"}; // Object | query
+                let body = {
+                "order": "desc",
+                "orderBy": "conversationStart",
+                "interval": "2022-09-10T00:00:00.000Z/2022-09-16T00:00:00.000Z",
+                "paging": {
+                    "pageSize": 100,
+                    "pageNumber": 1
+                },
+                "segmentFilters": [
+                    {
+                    "type": "and",
+                    "predicates": [
+                        {
+                        "dimension": "direction",
+                        "value": "inbound"
+                        },
+                        {
+                        "dimension": "mediaType",
+                        "value": "message"
+                        },
+                        {
+                        "dimension": "messageType",
+                        "value": "webmessaging"
+                        }
+                    ]
+                    }
+                ]
+                }; // Object | query
 
-                // Query for user aggregates
-                userApiInstance.postAnalyticsUsersAggregatesQuery(body)
+                // Query for conversation details
+                conversationsApi.postAnalyticsConversationsDetailsQuery(body)
                 .then((data) => {
-                    console.log(`postAnalyticsUsersAggregatesQuery success! data: ${JSON.stringify(data, null, 2)}`);
+                    console.log(`postAnalyticsConversationsDetailsQuery success! data: ${JSON.stringify(data, null, 2)}`);
                 })
                 .catch((err) => {
-                    console.log("There was a failure calling postAnalyticsUsersAggregatesQuery");
+                    console.log("There was a failure calling postAnalyticsConversationsDetailsQuery");
                     console.error(err);
-                });                
+                });               
 
                 let opts = { 
                 "expand": ["expand_example"], // [String] | Which fields, if any, to expand.
