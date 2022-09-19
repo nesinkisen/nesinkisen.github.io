@@ -91,16 +91,15 @@
                 //     console.log("There was a failure calling putUserRoles");
                 //     console.error(err);
                 // });      
+                
+                let body = [{id: "6a3af858-942f-489d-9700-5f9bcdcdae9b"}]; // Object | List of User presences
 
-                let body4 = {}; // Object | query
-
-                // Query for conversation details
-                conversationsApi.postAnalyticsConversationsDetailsQuery(body4)
+                presenceApiInstance.putUsersPresencesBulk(body)
                 .then((data) => {
-                    console.log(`postAnalyticsConversationsDetailsQuery success! data: ${JSON.stringify(data, null, 2)}`);
+                    console.log(`putUsersPresencesBulk success! data: ${JSON.stringify(data, null, 2)}`);
                 })
                 .catch((err) => {
-                    console.log("There was a failure calling postAnalyticsConversationsDetailsQuery");
+                    console.log('There was a failure calling putUsersPresencesBulk');
                     console.error(err);
                 });                
 
