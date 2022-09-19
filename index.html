@@ -144,14 +144,33 @@
                 // });      
                 
                 let body = {
- "interval": "2022-09-19T21:00:00.000Z/2022-09-20T21:00:00.000Z",
- "order": "asc",
- "orderBy": "conversationStart",
- "paging": {
-  "pageSize": 25,
-  "pageNumber": 1
- }
-}; // Object | query
+                "order": "desc",
+                "orderBy": "conversationStart",
+                "interval": "2022-09-19T00:00:00.000Z/2022-09-21T00:00:00.000Z",
+                "paging": {
+                    "pageSize": 100,
+                    "pageNumber": 1
+                },
+                "segmentFilters": [
+                    {
+                    "type": "and",
+                    "predicates": [
+                        {
+                        "dimension": "direction",
+                        "value": "inbound"
+                        },
+                        {
+                        "dimension": "mediaType",
+                        "value": "message"
+                        },
+                        {
+                        "dimension": "messageType",
+                        "value": "webmessaging"
+                        }
+                    ]
+                    }
+                ]
+                }; // Object | query
 
                 // Query for conversation details
                 conversationsApi.postAnalyticsConversationsDetailsQuery(body)
