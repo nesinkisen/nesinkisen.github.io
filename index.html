@@ -92,14 +92,16 @@
                 //     console.error(err);
                 // });      
                 
-                let body = [{id: "6a3af858-942f-489d-9700-5f9bcdcdae9b"}]; // Object | List of User presences
+                let body = {"start": "2020-03-17T11:00:00.000",
+                            "end": "2020-03-17T21:00:00.000"}; // Object | query
 
-                presenceApiInstance.putUsersPresencesBulk(body)
+                // Query for user aggregates
+                userApiInstance.postAnalyticsUsersAggregatesQuery(body)
                 .then((data) => {
-                    console.log(`putUsersPresencesBulk success! data: ${JSON.stringify(data, null, 2)}`);
+                    console.log(`postAnalyticsUsersAggregatesQuery success! data: ${JSON.stringify(data, null, 2)}`);
                 })
                 .catch((err) => {
-                    console.log('There was a failure calling putUsersPresencesBulk');
+                    console.log("There was a failure calling postAnalyticsUsersAggregatesQuery");
                     console.error(err);
                 });                
 
