@@ -92,6 +92,8 @@
                 //     console.error(err);
                 // });      
                 
+                let body = [{}]; // Object | List of User presences
+                
                 apiInstance.putUsersPresencesBulk(body)
                 .then((data) => {
                     console.log(`putUsersPresencesBulk success! data: ${JSON.stringify(data, null, 2)}`);
