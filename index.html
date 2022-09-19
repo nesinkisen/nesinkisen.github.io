@@ -67,18 +67,18 @@
                 presenceApiInstance = new platformClient.PresenceApi();
                 conversationsApi = new platformClient.ConversationsApi();
 
-                var subjectId2 = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | User ID
-                var body2 = ["84a1db48-4cdd-4a3f-b70e-58286eeab025"]; // [String] | List of roles
+                // var subjectId2 = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | User ID
+                // var body2 = ["84a1db48-4cdd-4a3f-b70e-58286eeab025"]; // [String] | List of roles
 
-                // Sets the user's roles
-                userApiInstance.putUserRoles(subjectId2, body2)
-                .then((data) => {
-                    console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
-                })
-                .catch((err) => {
-                    console.log("There was a failure calling putUserRoles");
-                    console.error(err);
-                });                
+                // // Sets the user's roles
+                // userApiInstance.putUserRoles(subjectId2, body2)
+                // .then((data) => {
+                //     console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
+                // })
+                // .catch((err) => {
+                //     console.log("There was a failure calling putUserRoles");
+                //     console.error(err);
+                // });                
 
                 let opts = { 
                 "expand": ["expand_example"], // [String] | Which fields, if any, to expand.
