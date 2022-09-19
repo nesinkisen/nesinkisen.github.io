@@ -122,13 +122,13 @@
             {
 				// Create request body
 				let body = {
-					'phoneNumber':$('+905439708745').val()
+					'phoneNumber':$("#txtPhoneNumber").val()
 				};
 
 				// Invoke API
 				conversationsApi.postConversationsCalls(body).then(() => {
 					// Clear dialstring from text box
-					$('+905439708745').val('');
+					$('#txtPhoneNumber').val('');
 				}).catch((err) => console.error(err));
 			};            
 
@@ -156,6 +156,7 @@
             <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>
             <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
+            <input type="text" id="txtPhoneNumber" value="+905439708745" />
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
