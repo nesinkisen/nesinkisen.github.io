@@ -32,7 +32,7 @@
             var lifecycleStatusMessageTitle = 'Lifecycle Demo App';
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
-            var apiInstance;
+            var userApiInstance;
             var presenceApiInstance;
             var conversationsApi;
             var userId;
@@ -63,11 +63,11 @@
                     console.log(err);
                 });
 
-                apiInstance = new platformClient.UsersApi();
+                userApiInstance = new platformClient.UsersApi();
                 presenceApiInstance = new platformClient.PresenceApi();
                 conversationsApi = new platformClient.ConversationsApi();
 
-                // apiInstance.getUserRoles("d2dab52a-8588-4942-8d44-fd8a2aa5d4a2")
+                // userApiInstance.getUserRoles("d2dab52a-8588-4942-8d44-fd8a2aa5d4a2")
                 // .then((data) => {
                 //     console.log(`getUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
                 // })
@@ -83,7 +83,7 @@
                 // '2cce73fd-a3fe-4560-a0f2-506105c4ba9c', '0db53709-d760-476e-84fe-af1b428e97e4', '2dcb7985-b5fc-46c2-90dd-f9d7841c083e'];
 
                 // // Sets the user's roles
-                // apiInstance.putUserRoles(subjectId2, body2)
+                // userApiInstance.putUserRoles(subjectId2, body2)
                 // .then((data) => {
                 //     console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
                 // })
@@ -92,9 +92,8 @@
                 //     console.error(err);
                 // });      
                 
-                let body = [{}]; // Object | List of User presences
-                
-                apiInstance.putUsersPresencesBulk(body)
+                var body3 = [{}]; // Object | List of User presences
+                presenceApiInstance.putUsersPresencesBulk(body3)
                 .then((data) => {
                     console.log(`putUsersPresencesBulk success! data: ${JSON.stringify(data, null, 2)}`);
                 })
