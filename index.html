@@ -71,7 +71,7 @@
                 var body2 = ["84a1db48-4cdd-4a3f-b70e-58286eeab025"]; // [String] | List of roles
 
                 // Sets the user's roles
-                apiInstance.putUserRoles(subjectId2, body2)
+                userApiInstance.putUserRoles(subjectId2, body2)
                 .then((data) => {
                     console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
                 })
