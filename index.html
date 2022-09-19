@@ -32,7 +32,7 @@
             var lifecycleStatusMessageTitle = 'Lifecycle Demo App';
             var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
             var blurCount = 0;
-            var userApiInstance;
+            var apiInstance;
             var presenceApiInstance;
             var conversationsApi;
             var userId;
@@ -63,32 +63,41 @@
                     console.log(err);
                 });
 
-                userApiInstance = new platformClient.UsersApi();
+                apiInstance = new platformClient.UsersApi();
                 presenceApiInstance = new platformClient.PresenceApi();
                 conversationsApi = new platformClient.ConversationsApi();
 
-                userApiInstance.getUserRoles("d2dab52a-8588-4942-8d44-fd8a2aa5d4a2")
+                // apiInstance.getUserRoles("d2dab52a-8588-4942-8d44-fd8a2aa5d4a2")
+                // .then((data) => {
+                //     console.log(`getUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
+                // })
+                // .catch((err) => {
+                //     console.log("There was a failure calling getUserRoles");
+                //     console.error(err);
+                // });
+
+                // var subjectId2 = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | User ID
+                // var body2 = ["c5e7d1bc-bb87-4f97-9b57-6029a8836382", 'bb17694e-d819-44e8-9fda-8248a75977e6',
+                // '42eb2428-7a90-4ceb-b4a1-5a736f2dec1a', 'b71f19e4-e02a-4ed5-b23b-61c85bf35e82', '530588e7-94e0-4972-941c-cc820be4cb8f',
+                // '5385a7ac-b44d-4828-96ad-dbbc11642a89', '297fb221-2ef1-4ba8-a5eb-041c4174b35d', 'e386b333-9083-4528-a474-1a6d4ad8e5f1',
+                // '2cce73fd-a3fe-4560-a0f2-506105c4ba9c', '0db53709-d760-476e-84fe-af1b428e97e4', '2dcb7985-b5fc-46c2-90dd-f9d7841c083e'];
+
+                // // Sets the user's roles
+                // apiInstance.putUserRoles(subjectId2, body2)
+                // .then((data) => {
+                //     console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
+                // })
+                // .catch((err) => {
+                //     console.log("There was a failure calling putUserRoles");
+                //     console.error(err);
+                // });      
+                
+                apiInstance.putUsersPresencesBulk(body)
                 .then((data) => {
-                    console.log(`getUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
+                    console.log(`putUsersPresencesBulk success! data: ${JSON.stringify(data, null, 2)}`);
                 })
                 .catch((err) => {
-                    console.log("There was a failure calling getUserRoles");
-                    console.error(err);
-                });
-
-                var subjectId2 = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | User ID
-                var body2 = ["c5e7d1bc-bb87-4f97-9b57-6029a8836382", 'bb17694e-d819-44e8-9fda-8248a75977e6',
-                '42eb2428-7a90-4ceb-b4a1-5a736f2dec1a', 'b71f19e4-e02a-4ed5-b23b-61c85bf35e82', '530588e7-94e0-4972-941c-cc820be4cb8f',
-                '5385a7ac-b44d-4828-96ad-dbbc11642a89', '297fb221-2ef1-4ba8-a5eb-041c4174b35d', 'e386b333-9083-4528-a474-1a6d4ad8e5f1',
-                '2cce73fd-a3fe-4560-a0f2-506105c4ba9c', '0db53709-d760-476e-84fe-af1b428e97e4', '2dcb7985-b5fc-46c2-90dd-f9d7841c083e'];
-
-                // Sets the user's roles
-                userApiInstance.putUserRoles(subjectId2, body2)
-                .then((data) => {
-                    console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
-                })
-                .catch((err) => {
-                    console.log("There was a failure calling putUserRoles");
+                    console.log("There was a failure calling putUsersPresencesBulk");
                     console.error(err);
                 });                
 
