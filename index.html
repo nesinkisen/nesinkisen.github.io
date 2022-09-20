@@ -117,49 +117,7 @@
 
 				})
 /////////////////////////////////////////////////////////
-//*******************************************************//
-                .then(() => {
-					console.log('Logged in');
 
-					// Get "Support" queue by name
-					return routingApi.getRoutingQueues({ name: 'Support' });
-				})
-				.then((queueData) => {
-					// Store queue ID
-					console.log('queueData: ', queueData);
-					const queueId = queueData.entities[0].id;
-
-					// Build analytics query
-					let query = {
-						interval : getIntervalString(),
-						groupBy: ['queueId'],
-						metrics : ['nOffered','tAnswered','tTalk'],
-						filter :{
-							type: 'and',
-							clauses: [
-								{
-									type: 'or',
-									predicates:[
-										{
-											dimension : 'queueId',
-											value: queueId
-										}
-									]
-								}
-							]
-						}
-					};
-					console.log('query: ', query);
-					
-					// Execute analytics query
-					return analyticsApi.postAnalyticsConversationsAggregatesQuery(query);
-				})
-				.then((queryResult) => {
-					// Display analytics results
-					console.log('queryResult: ', queryResult);
-					$('#results').text(JSON.stringify(queryResult, null, 2));
-				})
-//*******************************************************//
                 .catch((err) => {
                     // Handle failure response
                     console.log(err);
