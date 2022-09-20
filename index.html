@@ -35,6 +35,8 @@
             var userApiInstance;
             var presenceApiInstance;
             var conversationsApi;
+            var analyticsApi;
+            var routingApi;
             var userId;
     
             $( document ).ready(function() 
@@ -46,7 +48,13 @@
 
                 // Create API instance
                 //const usersApi = new platformClient.UsersApi();
-                userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id          
+                userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id      
+                
+                userApiInstance = new platformClient.UsersApi();
+                presenceApiInstance = new platformClient.PresenceApi();
+                conversationsApi = new platformClient.ConversationsApi();
+                analyticsApi = new platformClient.AnalyticsApi();
+		        routingApi = new platformClient.RoutingApi();                
 
                 // Authenticate
                 client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
@@ -109,14 +117,53 @@
 
 				})
 /////////////////////////////////////////////////////////
+//*******************************************************//
+                .then(() => {
+					console.log('Logged in');
+
+					// Get "Support" queue by name
+					return routingapi.getRoutingQueues({ name: 'Support' });
+				})
+				.then((queueData) => {
+					// Store queue ID
+					console.log('queueData: ', queueData);
+					const queueId = queueData.entities[0].id;
+
+					// Build analytics query
+					let query = {
+						interval : getIntervalString(),
+						groupBy: ['queueId'],
+						metrics : ['nOffered','tAnswered','tTalk'],
+						filter :{
+							type: 'and',
+							clauses: [
+								{
+									type: 'or',
+									predicates:[
+										{
+											dimension : 'queueId',
+											value: queueId
+										}
+									]
+								}
+							]
+						}
+					};
+					console.log('query: ', query);
+					
+					// Execute analytics query
+					return analyticsapi.postAnalyticsConversationsAggregatesQuery(query);
+				})
+				.then((queryResult) => {
+					// Display analytics results
+					console.log('queryResult: ', queryResult);
+					$('#results').text(JSON.stringify(queryResult, null, 2));
+				})
+//*******************************************************//
                 .catch((err) => {
                     // Handle failure response
                     console.log(err);
                 });
-
-                userApiInstance = new platformClient.UsersApi();
-                presenceApiInstance = new platformClient.PresenceApi();
-                conversationsApi = new platformClient.ConversationsApi();
 
                 // userApiInstance.getUserRoles("d2dab52a-8588-4942-8d44-fd8a2aa5d4a2")
                 // .then((data) => {
@@ -298,6 +345,15 @@
                 var frame = document.getElementById('https://nesinkisen.github.io');
                 frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
             }; 
+
+            function getIntervalString() 
+            {
+                let end = new Date();
+                let start = new Date();
+                start.setDate(end.getDate() - 7);
+
+                return start.toISOString() + '/' + end.toISOString();
+		    };
         </script>     
         
         <div class="bs-example">
@@ -309,7 +365,7 @@
             <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>
             <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
-            <input type="text" id="txtPhoneNumber" value="+90 543 970 87 45" />
+            <input type="text" id="txtPhoneNumber" class="form-control" value="+90 543 970 87 45" />
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
