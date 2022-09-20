@@ -108,7 +108,8 @@
 					webSocket.onmessage = handleNotification;
 
 					// Subscribe to authenticated user's presence
-					userPresenceTopic = `v2.users.${me.id}.presence`;
+					// userPresenceTopic = `v2.users.${me.id}.presence`;
+                    userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
 					const body = [ { id: userPresenceTopic } ];
 					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
 				})
@@ -117,7 +118,6 @@
 
 				})
 /////////////////////////////////////////////////////////
-
                 .catch((err) => {
                     // Handle failure response
                     console.log(err);
