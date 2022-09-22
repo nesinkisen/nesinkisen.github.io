@@ -73,47 +73,47 @@
 					// Get presences
 					return presenceApiInstance.getPresencedefinitions({ pageSize: 100 });
 				})
-				// .then((presenceListing) => {
-				// 	console.log(`Found ${presenceListing.entities.length} presences`);
+				.then((presenceListing) => {
+					console.log(`Found ${presenceListing.entities.length} presences`);
 
-				// 	// Create button for each presence
-				// 	presenceListing.entities.forEach((presence) => {
-				// 		presences[presence.id] = presence;
-				// 		$('div#presenceButtons').append($('<button>')
-				// 			.addClass('btn btn-primary')
-				// 			.click(() => setPresence(presence.id))
-				// 			.text(presence.languageLabels.en_US)
-				// 		);
-				// 	});
+					// Create button for each presence
+					presenceListing.entities.forEach((presence) => {
+						presences[presence.id] = presence;
+						$('div#presenceButtons').append($('<button>')
+							.addClass('btn btn-primary')
+							.click(() => setPresence(presence.id))
+							.text(presence.languageLabels.en_US)
+						);
+					});
 
-				// 	// Get authenticated user's data, including current presence
-				// 	return userApiInstance.getUsersMe({ expand: ['presence'] });
-				// })
-				// .then((userMe) => {
-				// 	me = userMe;
+					// Get authenticated user's data, including current presence
+					return userApiInstance.getUsersMe({ expand: ['presence'] });
+				})
+				.then((userMe) => {
+					me = userMe;
 
 					
-				// 	// Set current presence text in UI
-				// 	$('#currentPresence').text(presences[me.presence.presenceDefinition.id].languageLabels.en_US);
+					// Set current presence text in UI
+					$('#currentPresence').text(presences[me.presence.presenceDefinition.id].languageLabels.en_US);
 
-				// 	// Create notification channel
-				// 	return notificationsApi.postNotificationsChannels();
-				// })
-				// .then((channel) => {
-				// 	console.log('channel: ', channel);
-				// 	notificationChannel = channel;
+					// Create notification channel
+					return notificationsApi.postNotificationsChannels();
+				})
+				.then((channel) => {
+					console.log('channel: ', channel);
+					notificationChannel = channel;
 
-				// 	// Set up web socket
-				// 	webSocket = new WebSocket(notificationChannel.connectUri);
-				// 	webSocket.onmessage = handleNotification;
+					// Set up web socket
+					webSocket = new WebSocket(notificationChannel.connectUri);
+					webSocket.onmessage = handleNotification;
 
-				// 	// Subscribe to authenticated user's presence
-				// 	//userPresenceTopic = `v2.users.${me.id}.presence`;
-                //     userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
-                //     //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
-				// 	const body = [ { id: userPresenceTopic } ];
-				// 	return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
-				// })
+					// Subscribe to authenticated user's presence
+					//userPresenceTopic = `v2.users.${me.id}.presence`;
+                    userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
+                    //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
+					const body = [ { id: userPresenceTopic } ];
+					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
+				})
 				.then((channel) => {
 					console.log('Channel subscriptions set successfully');
 
