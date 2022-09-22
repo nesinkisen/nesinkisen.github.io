@@ -99,21 +99,21 @@
 					// Create notification channel
 					return notificationsApi.postNotificationsChannels();
 				})
-				.then((channel) => {
-					console.log('channel: ', channel);
-					notificationChannel = channel;
+				// .then((channel) => {
+				// 	console.log('channel: ', channel);
+				// 	notificationChannel = channel;
 
-					// Set up web socket
-					webSocket = new WebSocket(notificationChannel.connectUri);
-					webSocket.onmessage = handleNotification;
+				// 	// Set up web socket
+				// 	webSocket = new WebSocket(notificationChannel.connectUri);
+				// 	webSocket.onmessage = handleNotification;
 
-					// Subscribe to authenticated user's presence
-					//userPresenceTopic = `v2.users.${me.id}.presence`;
-                    userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
-                    //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
-					const body = [ { id: userPresenceTopic } ];
-					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
-				})
+				// 	// Subscribe to authenticated user's presence
+				// 	//userPresenceTopic = `v2.users.${me.id}.presence`;
+                //     userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
+                //     //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
+				// 	const body = [ { id: userPresenceTopic } ];
+				// 	return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
+				// })
 				.then((channel) => {
 					console.log('Channel subscriptions set successfully');
 
