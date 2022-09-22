@@ -71,7 +71,7 @@
 					console.log('Logged in');
 
 					// Get presences
-					return presenceApi.getPresencedefinitions({ pageSize: 100 });
+					return presenceApiInstance.getPresencedefinitions({ pageSize: 100 });
 				})
 				.then((presenceListing) => {
 					console.log(`Found ${presenceListing.entities.length} presences`);
@@ -217,7 +217,7 @@
 			console.log(`Setting presence to ${presences[presenceId].languageLabels.en_US} (${presenceId})`);
 
 			// Set presence
-			presenceApi.patchUserPresence(me.id, 'PURECLOUD', { presenceDefinition:{ id: presenceId } })
+			presenceApiInstance.patchUserPresence(me.id, 'PURECLOUD', { presenceDefinition:{ id: presenceId } })
 				.then(() => {
 					console.log('Presence set successfully');
 				})
