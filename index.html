@@ -73,22 +73,22 @@
 					// Get presences
 					return presenceApiInstance.getPresencedefinitions({ pageSize: 100 });
 				})
-				.then((presenceListing) => {
-					console.log(`Found ${presenceListing.entities.length} presences`);
+				// .then((presenceListing) => {
+				// 	console.log(`Found ${presenceListing.entities.length} presences`);
 
-					// Create button for each presence
-					presenceListing.entities.forEach((presence) => {
-						presences[presence.id] = presence;
-						$('div#presenceButtons').append($('<button>')
-							.addClass('btn btn-primary')
-							.click(() => setPresence(presence.id))
-							.text(presence.languageLabels.en_US)
-						);
-					});
+				// 	// Create button for each presence
+				// 	presenceListing.entities.forEach((presence) => {
+				// 		presences[presence.id] = presence;
+				// 		$('div#presenceButtons').append($('<button>')
+				// 			.addClass('btn btn-primary')
+				// 			.click(() => setPresence(presence.id))
+				// 			.text(presence.languageLabels.en_US)
+				// 		);
+				// 	});
 
-					// Get authenticated user's data, including current presence
-					return userApiInstance.getUsersMe({ expand: ['presence'] });
-				})
+				// 	// Get authenticated user's data, including current presence
+				// 	return userApiInstance.getUsersMe({ expand: ['presence'] });
+				// })
 				// .then((userMe) => {
 				// 	me = userMe;
 
