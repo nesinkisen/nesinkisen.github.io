@@ -89,16 +89,16 @@
 					// Get authenticated user's data, including current presence
 					return userApiInstance.getUsersMe({ expand: ['presence'] });
 				})
-				.then((userMe) => {
-					me = userMe;
+				// .then((userMe) => {
+				// 	me = userMe;
 
 					
-					// Set current presence text in UI
-					$('#currentPresence').text(presences[me.presence.presenceDefinition.id].languageLabels.en_US);
+				// 	// Set current presence text in UI
+				// 	$('#currentPresence').text(presences[me.presence.presenceDefinition.id].languageLabels.en_US);
 
-					// Create notification channel
-					return notificationsApi.postNotificationsChannels();
-				})
+				// 	// Create notification channel
+				// 	return notificationsApi.postNotificationsChannels();
+				// })
 				// .then((channel) => {
 				// 	console.log('channel: ', channel);
 				// 	notificationChannel = channel;
