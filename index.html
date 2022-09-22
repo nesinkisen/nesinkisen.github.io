@@ -109,7 +109,7 @@
 
 					// Subscribe to authenticated user's presence
 					//userPresenceTopic = `v2.users.${me.id}.presence`;
-                    userPresenceTopic = `v2.users.d2dab52a-8588-4942-8d44-fd8a2aa5d4a2.presence`;
+                    userPresenceTopic = `v2.users.d2dab52a-8588-4942-8d44-fd8a2aa5d4a.presence`;
                     //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
 					const body = [ { id: userPresenceTopic } ];
 					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
