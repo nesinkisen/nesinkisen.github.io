@@ -37,6 +37,7 @@
             var conversationsApi;
             var analyticsApi;
             var routingApi;
+            var notificationsApi;
             var userId;
             // Local vars
             var presences = {};
@@ -59,7 +60,8 @@
                 presenceApiInstance = new platformClient.PresenceApi();
                 conversationsApi = new platformClient.ConversationsApi();
                 analyticsApi = new platformClient.AnalyticsApi();
-		        routingApi = new platformClient.RoutingApi();                
+		        routingApi = new platformClient.RoutingApi();       
+                notificationsApi = new platformClient.NotificationsApi();         
 
                 // Authenticate
                 client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
