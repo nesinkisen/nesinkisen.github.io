@@ -120,7 +120,7 @@
                     userPresenceTopicArr = ["v2.users.${me.id}.presence", "v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence"];
                     //userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
                     //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
-					const body = [ { id: userPresenceTopicArr } ];
+					const body = [ { id: userPresenceTopic } ];
 					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
 				})
 				.then((channel) => {
