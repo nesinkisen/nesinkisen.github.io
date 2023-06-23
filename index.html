@@ -344,9 +344,44 @@
                     },
                     data: data,
                     processData: false,
-                    contentType: false
+                    contentType: false,
+
+                    success:function(dat2)
+                    {
+                        if(dat2==1) alert("Successful");
+                        else alert("Unable to Upload");
+                    }                    
                 });
-                }
+            }
+
+            function uploadfile()
+            {
+                var filename = $('#filename').val();                    //To save file with this name
+                var file_data = $('.fileToUpload').prop('files')[0];    //Fetch the file
+                var form_data = new FormData();
+                form_data.append('id', "Mert_Test2_csv");
+                form_data.append('file', file);
+                form_data.append('fileType', 'contactlist');
+                form_data.append('contact-id-name', 'Contact ID');
+                //Ajax to send file to upload
+                $.ajax({
+                    url: 'https://apps.mypurecloud.ie/uploads/v2/contactlist',
+                    type: 'POST',
+                    headers: 
+                    {
+                        Authorization: 'bearer ' + "P89IrEtCQjwyHN1cV5jKXhADo5-yhSQFA20IttWn8rOGVeGOOtiqzZbxBwdxviPux6wSUYXNBKZGUkDiVRacUA"
+                    },
+                    data: data,
+                    processData: false,
+                    contentType: false,
+
+                    success:function(dat2)
+                    {
+                        if(dat2==1) alert("Successful");
+                        else alert("Unable to Upload");
+                    }                    
+                });
+            }            
 
             function getIntervalString() 
             {
@@ -370,7 +405,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadContacts()">Upload</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload2</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
