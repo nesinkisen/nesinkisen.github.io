@@ -360,9 +360,9 @@
                 var file_data = $('.fileToUpload').prop('files')[0];    //Fetch the file
                 var form_data = new FormData();
                 form_data.append('id', "Mert_Test2_csv");
-                form_data.append('file', "csv");
+                form_data.append('file', file_data);
                 form_data.append('fileType', 'contactlist');
-                form_data.append('contact-id-name', 'Contact ID');
+                form_data.append('contact-id-name', 'Contact_ID');
                 //Ajax to send file to upload
                 $.ajax({
                     url: 'https://apps.mypurecloud.ie/uploads/v2/contactlist',
@@ -405,7 +405,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload3</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload4</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
