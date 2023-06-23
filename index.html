@@ -362,7 +362,7 @@
                 form_data.append('id', "78ae4bf2-db63-4630-aebd-d59e3a82ecee-Mert_Test2_csv");
                 form_data.append('file', file_data);
                 form_data.append('fileType', 'contactlist');
-                form_data.append('contact-id-name', 'Contact_ID');
+                form_data.append('contact-id-name', 'Contact ID');
                 //Ajax to send file to upload
                 $.ajax({
                     url: 'https://apps.mypurecloud.ie/uploads/v2/contactlist',
@@ -379,7 +379,11 @@
                     {
                         if(dat2==1) alert("Successful");
                         else alert("Unable to Upload");
-                    }                    
+                    },
+                    error:function(dat3)
+                    {
+                        alert(dat3);
+                    } 
                 });
             }            
 
@@ -405,7 +409,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload 8</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload 9</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
