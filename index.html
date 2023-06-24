@@ -127,6 +127,20 @@
 					console.log('Channel subscriptions set successfully');
 
 				})
+				.then(() => {
+					console.log('Logged in');
+
+					// Get a list of contact lists
+					return outboundApi.getOutboundContactlists({ pageSize: 100 });
+				})
+				.then((contactLists) => {
+					// Add contact lists to the UI
+					contactLists.entities.forEach((contactList) => {
+						$('#contactLists').append($('<option></option>')
+							.attr('value', contactList.id)
+							.text(contactList.name));
+					});
+				})                
 /////////////////////////////////////////////////////////
                 .catch((err) => {
                     // Handle failure response
@@ -316,17 +330,6 @@
                 frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
             }; 
 
-            function btnCsvUpload()
-            {
-                alert("1");
-                $('#file-input').change(function (event) 
-                {
-                    alert(event);
-                    alert(event.target.files[0]);
-                    uploadContacts(event.target.files[0]);
-                });
-            }
-
             function uploadContacts(file) 
             {
                 var data = new FormData();
@@ -408,7 +411,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload 7</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload 8</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
