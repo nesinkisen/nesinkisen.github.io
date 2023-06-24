@@ -402,6 +402,52 @@
 
                 return start.toISOString() + '/' + end.toISOString();
 		    };
+
+            function uploadContacts2(file) 
+            {
+                const contactListId = $('#contactLists').find(':selected').val();
+                console.log('contactListId: ' + contactListId);
+
+                // Build form data object (POST request body)
+                const data = new FormData();
+                data.append('id', 'Mert_Test2_csv');
+                data.append('file', file);
+                data.append('fileType', 'contactlist');
+                data.append('contact-id-name', 'Customer_Id');
+
+                // Build request
+                const request = {
+                    url: 'https://apps.mypurecloud.ie/uploads/v2/contactlist',
+                    headers: {
+                        Authorization: 'bearer ' + "mlE-Hvfmm9IwA3SWvoJgcrNC3YpeiXvXqyTM9acNZoXnnnTXFCkW69JVB-afcCTtPept2plQ1BHHEVZbCWCKrQ"
+                    },
+                    data: data,
+                    processData: false,
+                    contentType: false
+                };
+
+                // Upload contact list
+                $.post(request)
+                    .then((data) => {
+                        console.log('UPLOAD SUCCESS');
+                        console.log(data);
+
+                        // Show success
+                        $('#upload-result').html($('<div>').addClass('alert alert-success').text('File uploaded successfully'));
+                    })
+                    .catch((err) => {
+                        let message = $('<span>').text('File uploaded failed!');
+                        if (err.status) {
+                            message.append($('<p>').text(`${err.status} ${err.statusText}`));
+                            message.append($('<p>').text(`Response body: ${err.responseText}`));
+                        }
+                        console.error(err);
+
+                        // Show failure
+                        $('#upload-result').html($('<div>').addClass('alert alert-danger').html(message));
+                    });
+                    
+		    }            
         </script>     
         
         <div class="bs-example">
@@ -416,7 +462,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload 1</button>
+            <button class="btn btn-success" onclick="uploadContacts2()">Upload 2</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
