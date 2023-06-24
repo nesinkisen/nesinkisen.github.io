@@ -131,14 +131,16 @@
 					console.log('Logged in');
 
 					// Get a list of contact lists
-					return outboundApi.getOutboundContactlists({ pageSize: 100 });
+					//return outboundApi.getOutboundContactlists({ pageSize: 100 });
+                    var aaaa = outboundApi.getOutboundContactlists({ pageSize: 100 });
 				})
 				.then((contactLists) => {
 					// Add contact lists to the UI
-					contactLists.entities.forEach((contactList) => {
-						$('#contactLists').append($('<option></option>')
-							.attr('value', contactList.id)
-							.text(contactList.name));
+					contactLists.entities.forEach((contactList) => 
+                    {
+						//$('#contactLists').append($('<option></option>')
+						//	.attr('value', contactList.id)
+						//	.text(contactList.name));
 					});
 				})                
 /////////////////////////////////////////////////////////
@@ -411,7 +413,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload 8</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload 9</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
