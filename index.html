@@ -140,6 +140,7 @@
 					// Add contact lists to the UI
 					contactLists.entities.forEach((contactList) => 
                     {
+                        console.warn(contactList.id + " --- " + contactList.name);
 						//$('#contactLists').append($('<option></option>')
 						//	.attr('value', contactList.id)
 						//	.text(contactList.name));
@@ -415,7 +416,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadfile()">Upload 9</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload 1</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
