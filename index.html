@@ -426,6 +426,8 @@
                     contentType: false
                 };
 
+                console.log(data);
+
                 // Upload contact list
                 $.post(request)
                     .then((data) => {
@@ -433,7 +435,7 @@
                         console.log(data);
 
                         // Show success
-                        $('#upload-result').html($('<div>').addClass('alert alert-success').text('File uploaded successfully'));
+                        //$('#upload-result').html($('<div>').addClass('alert alert-success').text('File uploaded successfully'));
                     })
                     .catch((err) => {
                         let message = $('<span>').text('File uploaded failed!');
