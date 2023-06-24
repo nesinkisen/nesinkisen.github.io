@@ -38,6 +38,7 @@
             var analyticsApi;
             var routingApi;
             var notificationsApi;
+            var outboundApi;
             var userId;
             // Local vars
             var presences = {};
@@ -62,7 +63,8 @@
                 conversationsApi = new platformClient.ConversationsApi();
                 analyticsApi = new platformClient.AnalyticsApi();
 		        routingApi = new platformClient.RoutingApi();       
-                notificationsApi = new platformClient.NotificationsApi();         
+                notificationsApi = new platformClient.NotificationsApi();
+                outboundApi = new platformClient.OutboundApi();  
 
                 // Authenticate
                 client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
@@ -131,8 +133,8 @@
 					console.log('Logged in');
 
 					// Get a list of contact lists
-					//return outboundApi.getOutboundContactlists({ pageSize: 100 });
-                    var aaaa = outboundApi.getOutboundContactlists({ pageSize: 100 });
+					return outboundApi.getOutboundContactlists({ pageSize: 100 });
+                    //var aaaa = outboundApi.getOutboundContactlists({ pageSize: 100 });
 				})
 				.then((contactLists) => {
 					// Add contact lists to the UI
@@ -374,7 +376,7 @@
                     type: 'POST',
                     headers: 
                     {
-                        Authorization: 'bearer ' + "Eim9ZRuyT2_7tfAq5C81SMVNLyO5m7rK71X6V_MyxPC-X5ya-4Qn9DlO4Q9JggcHJvUxg8zBy8XzkfES089f5Q"
+                        Authorization: 'bearer ' + "mlE-Hvfmm9IwA3SWvoJgcrNC3YpeiXvXqyTM9acNZoXnnnTXFCkW69JVB-afcCTtPept2plQ1BHHEVZbCWCKrQ"
                     },
                     data: form_data,
                     processData: false,
