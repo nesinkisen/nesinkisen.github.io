@@ -367,17 +367,17 @@
                 var filename = $('#filename').val();                    //To save file with this name
                 var file_data = $('.fileToUpload').prop('files')[0];    //Fetch the file
                 var form_data = new FormData();
-                form_data.append('id', "Mert_Test3_csv");
+                form_data.append('id', "Mert_Test4_csv");
                 form_data.append('file', file_data);
                 form_data.append('fileType', 'contactlist');
-                form_data.append('contact-id-name', 'inin-outbound-id');
+                form_data.append('contact-id-name', 'Contact ID');
                 //Ajax to send file to upload
                 $.ajax({
                     url: 'https://apps.mypurecloud.ie/uploads/v2/contactlist',
                     type: 'POST',
                     headers: 
                     {
-                        Authorization: 'bearer ' + "mlE-Hvfmm9IwA3SWvoJgcrNC3YpeiXvXqyTM9acNZoXnnnTXFCkW69JVB-afcCTtPept2plQ1BHHEVZbCWCKrQ"
+                        Authorization: 'bearer ' + "6oez6ZgpfXtoZroptySaXkwHWcoSlgI8HQNQkd7g-IVE1BW9nqRYa8HTEoHuy59r19lwYp9OWqfxsqpw39zUIQ"
                     },
                     data: form_data,
                     processData: false,
@@ -464,7 +464,7 @@
 
             <input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
-            <button class="btn btn-success" onclick="uploadContacts2()">Upload 3</button>
+            <button class="btn btn-success" onclick="uploadfile()">Upload 4</button>
             <input type="text" id="txtPhoneNumber" value="+90 543" />
             
             <!-- Modal HTML -->
