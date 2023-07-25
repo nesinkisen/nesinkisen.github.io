@@ -315,6 +315,8 @@
                     target.innerHTML = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
                     console.warn(target.innerHTML);
                 }
+
+                document.getElementById("defaultOpen").click();
             });
 
 ////////////////////////////////////////////////////////////////////////////
@@ -462,8 +464,6 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }        
-
-document.getElementById("defaultOpen").click();
         </script>     
         
         <div class="bs-example">
@@ -473,7 +473,7 @@ document.getElementById("defaultOpen").click();
             <button type="button" onclick="btnBusy()" class="btn btn-danger">Busyy</button>
             <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
             <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>-->
-            
+
             <!--<button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>-->
 
