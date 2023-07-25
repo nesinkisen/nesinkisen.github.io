@@ -92,8 +92,6 @@
     
             $( document ).ready(function() 
             {
-                $("#Paris").hide();
-
                 const client = platformClient.ApiClient.instance;
                 
                 //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
@@ -513,7 +511,7 @@ function openCity(evt, cityName) {
         
         <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')">New Callback</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
           </div>
           
