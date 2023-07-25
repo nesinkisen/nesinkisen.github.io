@@ -462,6 +462,8 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }        
+
+document.getElementById("defaultOpen").click();
         </script>     
         
         <div class="bs-example">
@@ -502,7 +504,7 @@ function openCity(evt, cityName) {
         </div>    
         
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+            <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
             <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
           </div>
