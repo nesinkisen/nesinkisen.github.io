@@ -164,7 +164,7 @@
                         }).catch((err) => console.error(err));
                     });
                 })*/
-				.then(() => {
+				/*.then(() => {
 					console.log('Logged in');
 
 					// Get a list of contact lists
@@ -180,7 +180,7 @@
 						//	.attr('value', contactList.id)
 						//	.text(contactList.name));
 					});
-				})                   
+				})*/                
                                                      
 /////////////////////////////////////////////////////////
                 .catch((err) => {
@@ -333,8 +333,13 @@
             } else 
             {
                 console.debug('Conversation notification: ', notification);
-                if(notification.eventBody.participant[0].state == "Connected")
+                if(notification.eventBody.participant[0].state !== "undefined")
+                {
+                    if(notification.eventBody.participant[0].state == "connected")
+                    {
                     console.warn("evreka");
+                    }
+                }
             }
 
             // See function description for explanation
