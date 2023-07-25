@@ -1,8 +1,3 @@
-function buyFunc()
-{
-    alert("aaaaa");
-}
-
 function btnAvailable()
             {
                 presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "6a3af858-942f-489d-9700-5f9bcdcdae9b" } })
@@ -29,3 +24,32 @@ function btnAvailable()
                     })
                     .catch((err) => console.error(err));
             };  
+
+			// Handle dial button click
+			function btnMakeCall()
+            {
+				// Create request body
+				let body = {
+					'phoneNumber':$("#txtPhoneNumber").val()
+				};
+
+				// Invoke API
+				conversationsApi.postConversationsCalls(body).then(() => {
+					// Clear dialstring from text box
+					$('#txtPhoneNumber').val('');
+				}).catch((err) => console.error(err));
+			};            
+
+            function btnDisableStatus()
+            {
+                $("table tbody tr td a").attr('href','https://apps.mypurecloud.ie');
+            }; 
+
+            function btnDisableAll()
+            {
+                // parent.document.getElementById("ember1262").style.pointerEvents = "none";
+                // parent.document.getElementById("ember1262").style.opacity = "0.5"; 
+
+                var frame = document.getElementById('https://nesinkisen.github.io');
+                frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
+            };             
