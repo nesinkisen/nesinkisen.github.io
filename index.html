@@ -152,7 +152,7 @@
 
                     // Set up web socket
                     webSocket = new WebSocket(notificationChannel.connectUri);
-                    webSocket.onmessage = handleCallNotification;
+                    webSocket.onmessage = handleNotification;
 
                     // Subscribe to authenticated user's conversations
                     conversationsTopic = 'v2.users.' + me.id + '.conversations';
@@ -285,6 +285,7 @@
 		}
 
 
+        /*
 		// Handle incoming Genesys Cloud notification from WebSocket
 		function handleNotification(message) {
 			// Parse notification string to a JSON object
@@ -309,7 +310,10 @@
                     // Log messages
                     $('div#messages').append($('<pre>').text(`${new Date().toLocaleTimeString()} - ${JSON.stringify(notification,null,2)}`));
                 }
-                function handleNotification(message) {
+            */
+            
+            function handleNotification(message) 
+            {
             // Parse notification string to a JSON object
             const notification = JSON.parse(message.data);
 
