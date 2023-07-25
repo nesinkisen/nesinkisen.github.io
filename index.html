@@ -67,7 +67,7 @@
                 outboundApi = new platformClient.OutboundApi();  
 
                 // Authenticate
-                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io/BlazorWeb/")
                 .then(() => {
                     // Make request to GET /api/v2/users/me?expand=presence
                     return userApiInstance.getUsersMe({ 'expand': ["presence"] });
@@ -229,7 +229,7 @@
                     });
                 }); 
                        
-                var frameWindow = document.getElementById("https://nesinkisen.github.io").contentWindow;
+                var frameWindow = document.getElementById("https://nesinkisen.github.io/BlazorWeb/").contentWindow;
 
                 frameWindow.addEventListener("load"), function(){
                     var doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -331,7 +331,7 @@
                 // parent.document.getElementById("ember1262").style.pointerEvents = "none";
                 // parent.document.getElementById("ember1262").style.opacity = "0.5"; 
 
-                var frame = document.getElementById('https://nesinkisen.github.io');
+                var frame = document.getElementById('https://nesinkisen.github.io/BlazorWeb/');
                 frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
             }; 
 
