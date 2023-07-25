@@ -92,6 +92,8 @@
     
             $( document ).ready(function() 
             {
+                document.getElementById("Paris").style.display = "none";
+
                 const client = platformClient.ApiClient.instance;
                 
                 //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
@@ -520,7 +522,7 @@ function openCity(evt, cityName) {
             <p>London is the capital city of England.</p>
           </div>
           
-          <div id="Paris" class="tabcontent" hidden>
+          <div id="Paris" class="tabcontent">
             <p id="phoneNumber"></p>
             <button type="button" class="btn btn-primary">Schedule Callback</button>
           </div>
