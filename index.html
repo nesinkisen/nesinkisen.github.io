@@ -111,7 +111,7 @@
 					// Create notification channel
 					return notificationsApi.postNotificationsChannels();
 				})
-				.then((channel) => {
+				/*.then((channel) => {
 					console.log('channel: ', channel);
 					notificationChannel = channel;
 
@@ -131,6 +131,7 @@
 					console.log('Channel subscriptions set successfully');
 
 				})
+                */ 
                 .then((channel) => {
                     console.log('channelCall: ', channel);
                     notificationChannel = channel;
