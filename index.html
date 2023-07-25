@@ -338,7 +338,10 @@
             // Update UI
             $('#call-table').html(CONVERSATION_LIST_TEMPLATE(Object.values(conversationList)));
         }      
-        function copyCallPropsToParticipant(conversation) {
+        function copyCallPropsToParticipant(conversation) 
+        {
+            console.warn("conversationLog: " + conversation);
+
             conversation.participants.forEach((participant) => {
                 if (!participant.calls || participant.calls.length === 0) return;
 
