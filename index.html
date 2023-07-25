@@ -12,44 +12,43 @@
             }
             .close {display: none;}
 
-            [data-tab-content] {
-  display: none;
-}
+            body {font-family: Arial;}
 
-.active[data-tab-content] {
-  display: block;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-}
-
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid black;
-}
-
+/* Style the tab */
 .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
 }
 
-.tab.active {
-  background-color: #CCC;
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
 }
 
-.tab:hover {
-  background-color: #AAA;
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
 }
 
-.tab-content {
-  margin-left: 20px;
-  margin-right: 20px;
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
 }            
         </style>        
     </head>
@@ -450,23 +449,19 @@ function isConversationDisconnected(conversation) {
 	return !isConnected;
 }          
         
-        
-            const tabs = document.querySelectorAll('[data-tab-target]')
-            const tabContents = document.querySelectorAll('[data-tab-content]')
-
-            tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = document.querySelector(tab.dataset.tabTarget)
-                tabContents.forEach(tabContent => {
-                tabContent.classList.remove('active')
-                })
-                tabs.forEach(tab => {
-                tab.classList.remove('active')
-                })
-                tab.classList.add('active')
-                target.classList.add('active')
-            })
-            })        
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}        
         </script>     
         
         <div class="bs-example">
@@ -504,27 +499,27 @@ function isConversationDisconnected(conversation) {
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>    
         
-        <ul class="tabs">
-            <li data-tab-target="#scheduled_callbacks" class="active tab">Scheduled Callbacks</li>
-            <li data-tab-target="#pricing" class="tab">Pricing</li>
-            <li data-tab-target="#about" class="tab">About</li>
-        </ul>   
-        
-        <div class="tab-content">
-            <div id="scheduled_callbacks" data-tab-content class="active">
-              <h1>Home</h1>
-              <p>This is the home</p>
-            </div>
-            <div id="pricing" data-tab-content>
-              <h1>Pricing</h1>
-              <p>Some information on pricing</p>
-            </div>
-            <div id="about" data-tab-content>
-              <h1>About</h1>
-              <p>Let me tell you about me</p>
-            </div>
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+          </div>
+          
+          <div id="London" class="tabcontent">
+            <h3>London</h3>
+            <p>London is the capital city of England.</p>
+          </div>
+          
+          <div id="Paris" class="tabcontent">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p> 
+          </div>
+          
+          <div id="Tokyo" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
         </div>        
     </body>
     
