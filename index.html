@@ -335,7 +335,7 @@
                 console.debug('Conversation notification: ', notification);
                 if(typeof notification.eventBody.participants[0].state !== "undefined")
                 {
-                    if(notification.eventBody.participant[0].state == "connected")
+                    if(notification.eventBody.participants[0].state == "connected")
                     {
                     console.warn("evreka");
                     }
