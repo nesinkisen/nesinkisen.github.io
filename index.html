@@ -333,12 +333,9 @@
             } else 
             {
                 console.debug('Conversation notification: ', notification);
-                if(typeof notification.eventBody.participants[0].state !== "undefined")
+                if(typeof notification.eventBody.participants[1].connectedTime !== "undefined")
                 {
-                    if(notification.eventBody.participants[0].state == "connected")
-                    {
                     console.warn("evreka");
-                    }
                 }
             }
 
