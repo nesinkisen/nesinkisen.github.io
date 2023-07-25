@@ -382,7 +382,7 @@
                     {
                         console.warn("evreka connected");
                         openCity(event, 'Paris');
-                        document.getElementById("A100").innerHTML=notification.eventBody.participants[1].address;
+                        document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
                         console.warn("evreka disconnected")
