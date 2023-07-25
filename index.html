@@ -92,7 +92,7 @@
     
             $( document ).ready(function() 
             {
-                document.getElementById("Paris").style.display = "none";
+                $("#Paris").hide();
 
                 const client = platformClient.ApiClient.instance;
                 
@@ -383,7 +383,7 @@
                     if(notification.eventBody.participants[1].calls[0].state == "connected")
                     {
                         console.warn("evreka connected");
-                        document.getElementById("Paris").style.visibility = "visible";
+                        $("#Paris").show();
                         openCity(event, 'Paris');
                         document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
