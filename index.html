@@ -145,7 +145,39 @@
 						//	.attr('value', contactList.id)
 						//	.text(contactList.name));
 					});
-				})                
+				})    
+                .then((channel) => {
+                    console.log('channel: ', channel);
+                    notificationChannel = channel;
+
+                    // Set up web socket
+                    webSocket = new WebSocket(notificationChannel.connectUri);
+                    webSocket.onmessage = handleNotification;
+
+                    // Subscribe to authenticated user's conversations
+                    conversationsTopic = 'v2.users.' + me.id + '.conversations';
+                    const body = [ { id: conversationsTopic } ];
+                    return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
+                })     
+                .then((topicSubscriptions) => {
+                    console.log('topicSubscriptions: ', topicSubscriptions);
+
+                    CONVERSATION_LIST_TEMPLATE = Handlebars.compile($('#entry-template').html());
+
+                    // Handle dial button click
+                    $('button#dial').click(() => {
+                        // Create request body
+                        let body = {
+                            'phoneNumber':$('input#dialstring').val()
+                        };
+
+                        // Invoke API
+                        conversationsApi.postConversationsCalls(body).then(() => {
+                            // Clear dialstring from text box
+                            $('input#dialstring').val('');
+                        }).catch((err) => console.error(err));
+                    });
+                })                                       
 /////////////////////////////////////////////////////////
                 .catch((err) => {
                     // Handle failure response
