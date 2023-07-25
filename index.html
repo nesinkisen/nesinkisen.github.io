@@ -88,7 +88,7 @@
             var webSocket = null;
             var me, notificationChannel, conversationsTopic;
             var CONVERSATION_LIST_TEMPLATE = null;
-            var conversationList = {};         
+            var conversationList = {};     
     
             $( document ).ready(function() 
             {
@@ -382,6 +382,7 @@
                     {
                         console.warn("evreka connected");
                         openCity(event, 'Paris');
+                        document.getElementById("A100").innerHTML=notification.eventBody.participants[1].address;
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
                         console.warn("evreka disconnected")
@@ -508,8 +509,8 @@ function openCity(evt, cityName) {
         </div>    
         
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+            <button class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">New Callback</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
           </div>
           
@@ -519,6 +520,7 @@ function openCity(evt, cityName) {
           </div>
           
           <div id="Paris" class="tabcontent">
+            <p id="phoneNumber"></p>
             <button type="button" class="btn btn-primary">Schedule Callback</button>
           </div>
           
