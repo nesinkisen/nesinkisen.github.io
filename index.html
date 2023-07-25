@@ -47,22 +47,7 @@
             var webSocket = null;
             var me, notificationChannel, conversationsTopic;
             var CONVERSATION_LIST_TEMPLATE = null;
-            var conversationList = {};
-
-            // Set up handlebars
-            Handlebars.registerHelper('unlessCond', (v1, v2, options) => {
-                if(v1 !== v2) {
-                    return options.fn(this);
-                }
-                return options.inverse(this);
-            });
-
-            Handlebars.registerHelper('isConsult', (participants, options) => {
-                if(participants.length > 2) {
-                    return options.fn(this);
-                }
-                return options.inverse(this);
-            });            
+            var conversationList = {};         
     
             $( document ).ready(function() 
             {
