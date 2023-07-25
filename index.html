@@ -109,7 +109,7 @@
 					// Create notification channel
 					return notificationsApi.postNotificationsChannels();
 				})
-				.then((channel) => {
+				/*.then((channel) => {
 					console.log('channel: ', channel);
 					notificationChannel = channel;
 
@@ -128,7 +128,7 @@
 				.then((channel) => {
 					console.log('Channel subscriptions set successfully');
 
-				})
+				})*/
 				.then(() => {
 					console.log('Logged in');
 
@@ -286,7 +286,7 @@
 
 
 		// Handle incoming Genesys Cloud notification from WebSocket
-		function handleCallNotification(message) {
+		function handleNotification(message) {
 			// Parse notification string to a JSON object
                     const notification = JSON.parse(message.data);
 
