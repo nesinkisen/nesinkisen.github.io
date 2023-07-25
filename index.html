@@ -111,7 +111,7 @@
 					// Create notification channel
 					return notificationsApi.postNotificationsChannels();
 				})
-				/*.then((channel) => {
+				.then((channel) => {
 					console.log('channel: ', channel);
 					notificationChannel = channel;
 
@@ -131,7 +131,6 @@
 					console.log('Channel subscriptions set successfully');
 
 				})
-                */ 
                 .then((channel) => {
                     console.log('channelCall: ', channel);
                     notificationChannel = channel;
@@ -346,10 +345,12 @@
             copyCallPropsToParticipant(notification.eventBody);
 
             // Update conversation in list or remove it if disconnected
+            /*
             if (isConversationDisconnected(notification.eventBody))
                 delete conversationList[notification.eventBody.id];
             else
                 conversationList[notification.eventBody.id] = notification.eventBody;
+                */
 
             // Update UI
             ////$('#call-table').html(CONVERSATION_LIST_TEMPLATE(Object.values(conversationList)));
