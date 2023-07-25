@@ -131,24 +131,7 @@
 					console.log('Channel subscriptions set successfully');
 
 				})
-                */
-				.then(() => {
-					console.log('Logged in');
-
-					// Get a list of contact lists
-					return outboundApi.getOutboundContactlists({ pageSize: 100 });
-                    //var aaaa = outboundApi.getOutboundContactlists({ pageSize: 100 });
-				})
-				.then((contactLists) => {
-					// Add contact lists to the UI
-					contactLists.entities.forEach((contactList) => 
-                    {
-                        console.warn(contactList.id + " --- " + contactList.name);
-						//$('#contactLists').append($('<option></option>')
-						//	.attr('value', contactList.id)
-						//	.text(contactList.name));
-					});
-				})    
+                */ 
                 .then((channel) => {
                     console.log('channelCall: ', channel);
                     notificationChannel = channel;
@@ -181,6 +164,23 @@
                         }).catch((err) => console.error(err));
                     });
                 })  
+				.then(() => {
+					console.log('Logged in');
+
+					// Get a list of contact lists
+					return outboundApi.getOutboundContactlists({ pageSize: 100 });
+                    //var aaaa = outboundApi.getOutboundContactlists({ pageSize: 100 });
+				})
+				.then((contactLists) => {
+					// Add contact lists to the UI
+					contactLists.entities.forEach((contactList) => 
+                    {
+                        console.warn(contactList.id + " --- " + contactList.name);
+						//$('#contactLists').append($('<option></option>')
+						//	.attr('value', contactList.id)
+						//	.text(contactList.name));
+					});
+				})                   
                                                      
 /////////////////////////////////////////////////////////
                 .catch((err) => {
