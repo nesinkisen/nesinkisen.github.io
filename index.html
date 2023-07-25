@@ -555,7 +555,105 @@
                         $('#upload-result').html($('<div>').addClass('alert alert-danger').html(message));
                     });
                     
-		    }            
+		    }     
+            
+// Determines if a conversation is disconnected by checking to see if all participants are disconnected
+function isConversationDisconnected(conversation) {
+	let isConnected = false;
+	conversation.participants.some((participant) => {
+		if (participant.state !== 'disconnected') {
+			isConnected = true;
+			return true;
+		}
+	});
+
+	return !isConnected;
+}
+
+// Mute participant
+function mute(callId, participantId, currentMuteState) {
+	// Create request body, only set desired properties
+	let body = {
+		'muted': !currentMuteState
+	};
+
+	// Invoke API
+	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
+		.then(() => {
+			// Result will be empty here
+		}).catch((err) => console.error(err));
+}
+
+// Hold participant
+function hold(callId, participantId, currentHoldState) {
+	// Create request body, only set desired properties
+	let body = {
+		'held': !currentHoldState
+	};
+
+	// Invoke API
+	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
+		.then(() => {
+			// Result will be empty here
+		}).catch((err) => console.error(err));
+}
+
+// Disconnect participant
+function disconnect(callId, participantId) {
+	// Create request body, only set desired properties
+	let body = {
+		'state': 'disconnected'
+	};
+
+	// Invoke API
+	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
+		.then(() => {
+			// Result will be empty here
+		}).catch((err) => console.error(err));
+}
+
+// Initiate a consult transfer
+function startConsult() {
+	console.debug(conversationList);
+	let callId = conversationList[Object.keys(conversationList)[0]].id;
+
+	// Grab the first participant, which should be the party we dialed for an outbound call
+	let participantId = conversationList[callId].participants[1].id;
+
+	// Create request body
+	let body = {
+		'speakTo': 'destination',
+		'destination':{
+			'address' : $('input#newparticipant').val()
+		}
+	};
+
+	// Invoke API
+	conversationsApi.postConversationsCallParticipantConsult(callId, participantId, body)
+		.then(() => {
+			$('input#newparticipant').val('');
+			// We can ignore the response in this tutorial.
+		}).catch((err) => console.error(err));
+}
+
+// Change which parties in the consult transfer are speaking
+function consultSpeakTo(speakTo) {
+	let callId = conversationList[Object.keys(conversationList)[0]].id;
+
+	//grab the first participant, which should be the party we dialed for an outbound call
+	let participantId = conversationList[callId].participants[1].id;
+
+	// Create request body
+	let body = {
+		'speakTo': speakTo
+	};
+
+	// Invoke API
+	conversationsApi.patchConversationsCallParticipantConsult(callId, participantId, body)
+		.then(() => {
+			// We can ignore the response in this tutorial.
+		}).catch((err) => console.error(err));
+}            
         </script>     
         
         <div class="bs-example">
