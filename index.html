@@ -408,92 +408,7 @@ function isConversationDisconnected(conversation) {
 	});
 
 	return !isConnected;
-}
-
-// Mute participant
-function mute(callId, participantId, currentMuteState) {
-	// Create request body, only set desired properties
-	let body = {
-		'muted': !currentMuteState
-	};
-
-	// Invoke API
-	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
-		.then(() => {
-			// Result will be empty here
-		}).catch((err) => console.error(err));
-}
-
-// Hold participant
-function hold(callId, participantId, currentHoldState) {
-	// Create request body, only set desired properties
-	let body = {
-		'held': !currentHoldState
-	};
-
-	// Invoke API
-	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
-		.then(() => {
-			// Result will be empty here
-		}).catch((err) => console.error(err));
-}
-
-// Disconnect participant
-function disconnect(callId, participantId) {
-	// Create request body, only set desired properties
-	let body = {
-		'state': 'disconnected'
-	};
-
-	// Invoke API
-	conversationsApi.patchConversationsCallParticipant(callId, participantId, body)
-		.then(() => {
-			// Result will be empty here
-		}).catch((err) => console.error(err));
-}
-
-// Initiate a consult transfer
-function startConsult() {
-	console.debug(conversationList);
-	let callId = conversationList[Object.keys(conversationList)[0]].id;
-
-	// Grab the first participant, which should be the party we dialed for an outbound call
-	let participantId = conversationList[callId].participants[1].id;
-
-	// Create request body
-	let body = {
-		'speakTo': 'destination',
-		'destination':{
-			'address' : $('input#newparticipant').val()
-		}
-	};
-
-	// Invoke API
-	conversationsApi.postConversationsCallParticipantConsult(callId, participantId, body)
-		.then(() => {
-			$('input#newparticipant').val('');
-			// We can ignore the response in this tutorial.
-		}).catch((err) => console.error(err));
-}
-
-// Change which parties in the consult transfer are speaking
-function consultSpeakTo(speakTo) {
-	let callId = conversationList[Object.keys(conversationList)[0]].id;
-
-	//grab the first participant, which should be the party we dialed for an outbound call
-	let participantId = conversationList[callId].participants[1].id;
-
-	// Create request body
-	let body = {
-		'speakTo': speakTo
-	};
-
-	// Invoke API
-	conversationsApi.patchConversationsCallParticipantConsult(callId, participantId, body)
-		.then(() => {
-			// We can ignore the response in this tutorial.
-		}).catch((err) => console.error(err));
-}            
+}          
         </script>     
         
         <div class="bs-example">
@@ -506,10 +421,10 @@ function consultSpeakTo(speakTo) {
             <button type="button" onclick="btnDisableStatus()"class="btn btn-info">Disable Status</button>
             <button type="button" onclick="btnDisableAll()" class="btn btn-dark">Disable All</button>
 
-            <input type="file" class="fileToUpload form-control" ></input><br>
+            <!--<input type="file" class="fileToUpload form-control" ></input><br>
             <input type="text" placeholder="File name" id="filename" class="form-control"/><br>
             <button class="btn btn-success" onclick="uploadfile()">Upload 7</button>
-            <input type="text" id="txtPhoneNumber" value="+90 543" />
+            <input type="text" id="txtPhoneNumber" value="+90 543" />-->
             
             <!-- Modal HTML -->
             <div id="myModal" class="modal fade">
