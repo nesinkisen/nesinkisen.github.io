@@ -145,7 +145,7 @@
                     const body = [ { id: conversationsTopic } ];
                     return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
                 })     
-                .then((topicSubscriptions) => {
+                /*.then((topicSubscriptions) => {
                     console.log('topicSubscriptions: ', topicSubscriptions);
 
                     CONVERSATION_LIST_TEMPLATE = Handlebars.compile($('#entry-template').html());
@@ -163,7 +163,7 @@
                             $('input#dialstring').val('');
                         }).catch((err) => console.error(err));
                     });
-                })  
+                })*/
 				.then(() => {
 					console.log('Logged in');
 
@@ -330,8 +330,11 @@
                 // Unexpected topic
                 console.warn('Unknown notification: ', notification);
                 return;
-            } else {
+            } else 
+            {
                 console.debug('Conversation notification: ', notification);
+                if(notification.eventBody.participant[0].state == "Connected")
+                    console.warn("evreka");
             }
 
             // See function description for explanation
@@ -344,7 +347,7 @@
                 conversationList[notification.eventBody.id] = notification.eventBody;
 
             // Update UI
-            $('#call-table').html(CONVERSATION_LIST_TEMPLATE(Object.values(conversationList)));
+            ////$('#call-table').html(CONVERSATION_LIST_TEMPLATE(Object.values(conversationList)));
         }      
         function copyCallPropsToParticipant(conversation) 
         {
