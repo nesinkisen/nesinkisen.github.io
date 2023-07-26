@@ -52,4 +52,10 @@ function btnAvailable()
 
                 var frame = document.getElementById('https://nesinkisen.github.io');
                 frame.contentWindow.postMessage(document.getElementById("ember1262").style.pointerEvents = "none", 'https://apps.mypurecloud.ie');
-            };             
+            }; 
+            
+function scheduleCallback()
+{
+    document.getElementById("ParisTab").style.display = "none";
+    $("#LondonTab").css("background-color","yellow");
+}            

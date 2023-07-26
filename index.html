@@ -511,9 +511,9 @@ function openCity(evt, cityName) {
         </div>    
         
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
+            <button id="LondonTab" class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
             <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
-            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+            <button class="tablinks" onclick="openCity(event, 'Tokyo')" style="display: none;">Tokyo</button>
           </div>
           
           <div id="London" class="tabcontent">
@@ -523,7 +523,7 @@ function openCity(evt, cityName) {
           
           <div id="Paris" class="tabcontent">
             <p id="phoneNumber"></p>
-            <button type="button" class="btn btn-primary">Schedule Callback</button>
+            <button type="button" class="btn btn-primary" onclick="scheduleCallback()">Schedule Callback</button>
           </div>
           
           <div id="Tokyo" class="tabcontent">
