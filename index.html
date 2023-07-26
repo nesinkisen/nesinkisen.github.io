@@ -381,7 +381,7 @@
                     if(notification.eventBody.participants[1].calls[0].state == "connected")
                     {
                         console.warn("evreka connected");
-                        document.getElementById("Paris").style.display = "inline";
+                        document.getElementById("ParisTab").style.display = "inline";
                         openCity(event, 'Paris');
                         document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
@@ -511,7 +511,7 @@ function openCity(evt, cityName) {
         
         <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
+            <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
           </div>
           
