@@ -56,6 +56,25 @@ function btnAvailable()
             
 function scheduleCallback()
 {
+    var rowsAdded = document.getElementById('user_id').value;
+
+    for(var x=0; x<rowsAdded; x++) {
+        var newRow = document.getElementById('tbl_id').insertRow();
+
+        var newCell = newRow.insertCell();
+        newCell.innerHTML="<tr><td><input type='text' name='user_name'></td></tr>";
+
+        newCell = newRow.insertCell();
+        newCell.innerHTML="<tr><td><input type='text' name='score'></td></tr>";
+
+        newCell = newRow.insertCell();
+        newCell.innerHTML="<tr><td><input type='text' name='points'></td></tr>";
+
+        newCell = newRow.insertCell();
+        newCell.innerHTML="<tr><td><input type='text' name='total'></td></tr>";
+
+    }
+
     document.getElementById("ParisTab").style.display = "none";
     document.getElementById("Paris").style.display = "none";
     $("#LondonTab").css("background-color","yellow");
