@@ -57,5 +57,6 @@ function btnAvailable()
 function scheduleCallback()
 {
     document.getElementById("ParisTab").style.display = "none";
+    document.getElementById("Paris").style.display = "none";
     $("#LondonTab").css("background-color","yellow");
 }            
