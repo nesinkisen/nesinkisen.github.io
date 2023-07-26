@@ -381,7 +381,7 @@
                     if(notification.eventBody.participants[1].calls[0].state == "connected")
                     {
                         console.warn("evreka connected");
-                        $("#Paris").show();
+                        document.getElementById("Paris").style.display = "inline";
                         openCity(event, 'Paris');
                         document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
