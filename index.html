@@ -92,7 +92,6 @@
     
             $( document ).ready(function() 
             {
-                $("ParisTab").hide();
                 const client = platformClient.ApiClient.instance;
                 
                 //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
@@ -382,7 +381,8 @@
                     if(notification.eventBody.participants[1].calls[0].state == "connected")
                     {
                         console.warn("evreka connected");
-                        $("ParisTab").show();
+                        document.getElementById("ParisTab").style.display = "inline";
+                        $("#ParisTab").css("background-color","yellow");
                         openCity(event, 'Paris');
                         document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
@@ -512,7 +512,7 @@ function openCity(evt, cityName) {
         
         <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
-            <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')">New Callback</button>
+            <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
           </div>
           
