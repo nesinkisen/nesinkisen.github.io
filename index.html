@@ -316,7 +316,11 @@
                     console.warn(target.innerHTML);
                 }
 
-                openCity(event, 'London');
+                var millisecondsToWait = 500;
+                setTimeout(function() 
+                {
+                    openCity(event, 'London');
+                }, millisecondsToWait);                
             });
 
 ////////////////////////////////////////////////////////////////////////////
