@@ -92,6 +92,7 @@
     
             $( document ).ready(function() 
             {
+                $("ParisTab").hide();
                 const client = platformClient.ApiClient.instance;
                 
                 //client.setEnvironment(platformClient.PureCloudRegionHosts.us_east_1); // Genesys Cloud region
@@ -381,7 +382,7 @@
                     if(notification.eventBody.participants[1].calls[0].state == "connected")
                     {
                         console.warn("evreka connected");
-                        document.getElementById("ParisTab").style.display = "inline";
+                        $("ParisTab").show();
                         openCity(event, 'Paris');
                         document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
                     }
