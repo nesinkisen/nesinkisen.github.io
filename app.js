@@ -56,7 +56,7 @@ function btnAvailable()
             
 function scheduleCallback()
 {
-    var rowsAdded = document.getElementById('user_id').value;
+    var rowsAdded = "testtt";
 
     for(var x=0; x<rowsAdded; x++) {
         var newRow = document.getElementById('tbl_id').insertRow();
