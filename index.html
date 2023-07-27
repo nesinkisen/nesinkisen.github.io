@@ -88,7 +88,23 @@
 
             const db = getDatabase();
 
-         
+            var btnBtn = document.getElementById("btnSave");
+
+            function saveCallback()
+            {
+                var phone = "543";
+
+                set(ref(db, 'callbacks/' + phone),
+                {
+                    phone : phone
+                })
+                .then(()=>
+                {
+                    alert("stored");
+                });
+            }      
+            
+            btnBtn.addEventListener('click', saveCallback);
         </script>        
 
         <script type="text/javascript">
@@ -362,19 +378,6 @@
 				})
 				.catch((err) => console.error(err));
 		}
-        function saveCallback()
-            {
-                var phone = "543";
-
-                set(ref(db, 'callbacks/' + phone),
-                {
-                    phone : phone
-                })
-                .then(()=>
-                {
-                    alert("stored");
-                });
-            }           
 
 
         /*
@@ -582,7 +585,7 @@ function openCity(evt, cityName) {
           
           <div id="Paris" class="tabcontent">
             <p id="phoneNumber"></p>
-            <button type="button" class="btn btn-primary" onclick="saveCallback()">Schedule Callback</button>
+            <button id ="btnSave" type="button" class="btn btn-primary" onclick="saveCallback()">Schedule Callback</button>
           </div>
           
           <div id="Tokyo" class="tabcontent">
