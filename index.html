@@ -107,13 +107,16 @@
 
             function GetCallbacks()
             {
-                const dbref = ref(db);
-
-                get(child(dbref, "callbacks/" + $('#customerId').val())).then((snapshot)=>
+                app.database().ref('callbacks').once('value'), function(snapshot)
                 {
-                    var aaa = snapshot.val().phone;
-                    var bbb = snapshot.val().customerId;
-                })
+                    snapshot.forEach
+                    (
+                        function(ChildSnapShot)
+                        {
+                            console.log(ChildSnapShot.val().customerId);
+                        }
+                    )
+                }
             }
 
             function updateCallback()
