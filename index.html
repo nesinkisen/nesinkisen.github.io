@@ -89,13 +89,12 @@
             const db = getDatabase();
 
             var btnSave = document.getElementById("btnSave");
-            var phoneNumber = $('#phoneNumber').val();
 
             function saveCallback()
             {
                 set(ref(db, 'callbacks/' + "12345"),
                 {
-                    phone: phoneNumber,
+                    phone: $('#phoneNumber').val(),
                     scheduled_time: "2023-07-27T15:30:00"
                 })
                 .then(()=>
