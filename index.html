@@ -88,15 +88,15 @@
 
             const db = getDatabase();
 
-            var btnBtn = document.getElementById("btnSave");
+            var btnSave = document.getElementById("btnSave");
+            var phoneNumber = document.getElementById("phoneNumber");
 
             function saveCallback()
             {
-                var phone = "543";
-
-                set(ref(db, 'callbacks/' + phone),
+                set(ref(db, 'callbacks/' + "12345"),
                 {
-                    phone : phone
+                    phone: phoneNumber,
+                    scheduled_time: "2023-07-27T15:30:00"
                 })
                 .then(()=>
                 {
@@ -104,7 +104,7 @@
                 });
             }      
             
-            btnBtn.addEventListener('click', saveCallback);
+            btnSave.addEventListener('click', saveCallback);
         </script>        
 
         <script type="text/javascript">
