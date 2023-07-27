@@ -94,6 +94,7 @@
             {
                 set(ref(db, 'callbacks/' + $('#customerId').val()),
                 {
+                    customerId: $('#customerId').val(),
                     phone: $('#phoneNumber').val(),
                     scheduled_time: "2023-07-27T15:30:00"
                 })
@@ -107,12 +108,10 @@
             {
                 const dbref = ref(db);
 
-                get(child(dbref, "callbacks/" + $('#aaaa').val())).then((snapshot)=>
+                get(child(dbref, "callbacks/")).then((snapshot)=>
                 {
-                    //if(snapshot.exist())
-                    //{
-                        var aaa = snapshot.val().phone;
-                    //}
+                    var aaa = snapshot.val().phone;
+                    var bbb = snapshot.val().customerId;
                 })
             }
             
