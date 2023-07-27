@@ -96,7 +96,8 @@
                 {
                     customerId: $('#customerId').val(),
                     phone: $('#phoneNumber').val(),
-                    scheduled_time: "2023-07-27T15:30:00"
+                    scheduled_time: "2023-07-27T15:30:00",
+                    status: 'Open'
                 })
                 .then(()=>
                 {
@@ -114,9 +115,22 @@
                     var bbb = snapshot.val().customerId;
                 })
             }
+
+            function updateCallback()
+            {
+                set(ref(db, 'callbacks/' + $('#customerId').val()),
+                {
+                    status: 'Closed'
+                })
+                .then(()=>
+                {
+                    //alert("stored");
+                });
+            }             
             
             btnSave.addEventListener('click', saveCallback);
             btnGet.addEventListener('click', GetCallbacks);
+            btnUpdate.addEventListener('click', updateCallback);
         </script>        
 
         <script type="text/javascript">
@@ -579,6 +593,7 @@ function openCity(evt, cityName) {
           <div id="London" class="tabcontent">
             <input type="text" id="aaaa" name="aaaa"><br><br>
             <button id ="btnGet" type="button" class="btn btn-primary">Get Callbacks</button>
+            <button id ="btnUpdate" type="button" class="btn btn-primary">Update Callback</button>
           </div>
           
           <div id="Paris" class="tabcontent">
