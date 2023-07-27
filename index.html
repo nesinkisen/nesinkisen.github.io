@@ -107,7 +107,7 @@
 
             function GetCallbacks()
             {
-                app.database().ref('callbacks').once('value'), function(snapshot)
+                firebase.database().ref('callbacks').once('value'), function(snapshot)
                 {
                     snapshot.forEach
                     (
