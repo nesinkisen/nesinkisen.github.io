@@ -1,3 +1,26 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyBOG7xTyTBoTSt-R8XJAWY2mHG1jEgNyjk",
+    authDomain: "blazorweb-e36f2.firebaseapp.com",
+    projectId: "blazorweb-e36f2",
+    storageBucket: "blazorweb-e36f2.appspot.com",
+    messagingSenderId: "831465406902",
+    appId: "1:831465406902:web:c3b00d757a11db51510117"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var database = firebase.database();
+
+  function saveCallback()
+  {
+    var phone = "543";
+
+    database.ref('callbacks/' + phone).set({
+        phone : phone
+    })
+  }
+
 function btnAvailable()
             {
                 presenceApiInstance.patchUserPresence(userId, 'PURECLOUD', { presenceDefinition:{ id: "6a3af858-942f-489d-9700-5f9bcdcdae9b" } })

@@ -60,7 +60,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>   
-        <script src="https://apps.mypurecloud.ie"></script>     
+        <script src="https://apps.mypurecloud.ie"></script>  
+        <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"></script>
         <script src="app.js"></script>
         <script src="dialer.js"></script>
 
@@ -320,9 +322,10 @@
                 setTimeout(function() 
                 {
                     openCity(event, 'London');
-                }, millisecondsToWait);                
+                }, millisecondsToWait);        
+                
+               
             });
-
 ////////////////////////////////////////////////////////////////////////////
         function setPresence(presenceId) {
 			console.log(`Setting presence to ${presences[presenceId].languageLabels.en_US} (${presenceId})`);
@@ -541,7 +544,7 @@ function openCity(evt, cityName) {
           
           <div id="Paris" class="tabcontent">
             <p id="phoneNumber"></p>
-            <button type="button" class="btn btn-primary" onclick="scheduleCallback()">Schedule Callback</button>
+            <button type="button" class="btn btn-primary" onclick="saveCallback()">Schedule Callback</button>
           </div>
           
           <div id="Tokyo" class="tabcontent">
