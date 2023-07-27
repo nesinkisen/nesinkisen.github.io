@@ -106,7 +106,7 @@
             }      
 
             var tbody = document.getElementById('tbody1');
-            function AddItemToTable(customerId, phoneNumber, scheduled_time)
+            function AddItemToTable(customerId, phone, scheduled_time)
             {
                 let trow = document.createElement("tr");
                 let td1 = document.createElement("td");
@@ -114,7 +114,7 @@
                 let td3 = document.createElement("td");
 
                 td1.innerHTML = customerId;
-                td2.innerHTML = phoneNumber;
+                td2.innerHTML = phone;
                 td3.innerHTML = scheduled_time;
 
                 trow.appendChild(td1);
@@ -129,7 +129,7 @@
                 tbody.innerHTML="";
                 TheCallback.forEach(element =>
                 {
-                    AddItemToTable(element.customerId, element.phoneNumber, element.scheduled_time);
+                    AddItemToTable(element.customerId, element.phone, element.scheduled_time);
                 })
             }
 
