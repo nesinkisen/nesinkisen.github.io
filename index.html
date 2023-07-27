@@ -179,7 +179,7 @@
                 outboundApi = new platformClient.OutboundApi();  
 
                 // Authenticate
-                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io.com")
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
                 .then(() => {
                     // Make request to GET /api/v2/users/me?expand=presence
                     return userApiInstance.getUsersMe({ 'expand': ["presence"] });
