@@ -82,6 +82,25 @@
           
             // Initialize Firebase
             const app = initializeApp(firebaseConfig);
+
+            import {getDatabase, ref, set, child, update, remove}
+            from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
+
+            const db = getDatabase();
+
+            function saveCallback()
+            {
+                var phone = "543";
+
+                set(ref(db, 'callbacks/' + phone),
+                {
+                    phone : phone
+                })
+                .then(()=>
+                {
+                    alert("stored");
+                });
+            }            
           </script>        
 
         <script type="text/javascript">
@@ -495,15 +514,6 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }        
-
-  function saveCallback()
-  {
-    var phone = "543";
-
-    database.ref('callbacks/' + phone).set({
-        phone : phone
-    })
-  }
         </script>     
         
         <div class="bs-example">
