@@ -107,7 +107,7 @@
             {
                 const dbref = ref(db);
 
-                get(child(dbref, "callbacks/" + '12345')).then((snapshot)=>
+                get(child(dbref, "callbacks/" + $('#aaaa').val())).then((snapshot)=>
                 {
                     if(snapshot.exist())
                     {
@@ -578,7 +578,8 @@ function openCity(evt, cityName) {
           </div>
           
           <div id="London" class="tabcontent">
-            <button id ="btnGet" type="button" class="btn btn-primary">Schedule Callback</button>
+            <input type="text" id="aaaa" name="aaaa"><br><br>
+            <button id ="btnGet" type="button" class="btn btn-primary">Get Callbacks</button>
           </div>
           
           <div id="Paris" class="tabcontent">
