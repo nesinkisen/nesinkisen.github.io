@@ -109,7 +109,7 @@
             {
                 const dbref = ref(db);
 
-                get(child(dbref, "callbacks/" + '123')).then((snapshot)=>
+                get(child(dbref, "callbacks/" + $('#customerId').val())).then((snapshot)=>
                 {
                     var aaa = snapshot.val().phone;
                     var bbb = snapshot.val().customerId;
@@ -179,7 +179,7 @@
                 outboundApi = new platformClient.OutboundApi();  
 
                 // Authenticate
-                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.")
                 .then(() => {
                     // Make request to GET /api/v2/users/me?expand=presence
                     return userApiInstance.getUsersMe({ 'expand': ["presence"] });
