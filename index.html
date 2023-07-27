@@ -108,7 +108,7 @@
             {
                 const dbref = ref(db);
 
-                get(child(dbref, "callbacks/")).then((snapshot)=>
+                get(child(dbref, "callbacks/" + '123')).then((snapshot)=>
                 {
                     var aaa = snapshot.val().phone;
                     var bbb = snapshot.val().customerId;
