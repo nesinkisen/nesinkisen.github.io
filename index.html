@@ -102,8 +102,22 @@
                     //alert("stored");
                 });
             }      
+
+            function GetCallbacks()
+            {
+                const dbref = ref(db);
+
+                get(child(dbref, "callbacks/" + phone)).then((snapshot)=>
+                {
+                    if(snapshot.exist())
+                    {
+                        var aaa = snapshot.val().phone;
+                    }
+                })
+            }
             
             btnSave.addEventListener('click', saveCallback);
+            btnGet.addEventListener('click', GetCallbacks);
         </script>        
 
         <script type="text/javascript">
@@ -564,22 +578,7 @@ function openCity(evt, cityName) {
           </div>
           
           <div id="London" class="tabcontent">
-            <table id="tbl_id" style="text-align:center; align-items:center; vertical-align:top">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Score</th>
-                        <th>Points</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr>
-                        <td>aaa</td>
-                        <td>bbb</td>
-                        <td>ccc</td>
-                        <td>ddd</td>
-                    </tr>                    
-                </thead>
-            </table>
+            <button id ="btnGet" type="button" class="btn btn-primary">Schedule Callback</button>
           </div>
           
           <div id="Paris" class="tabcontent">
