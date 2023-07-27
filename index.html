@@ -432,7 +432,7 @@
                         document.getElementById("ParisTab").style.display = "inline";
                         $("#ParisTab").css("background-color","yellow");
                         openCity(event, 'Paris');
-                        document.getElementById("phoneNumber").innerHTML=notification.eventBody.participants[1].address;
+                        $("#phoneNumber").val(notification.eventBody.participants[1].address);
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
                         console.warn("evreka disconnected")
