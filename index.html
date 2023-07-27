@@ -81,7 +81,7 @@
             };
           
             // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
+            var app = initializeApp(firebaseConfig);
 
             import {getDatabase, ref, get, set, child, update, remove}
             from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
@@ -107,7 +107,7 @@
 
             function GetCallbacks()
             {
-                firebase.database().ref('callbacks').once('value'), function(snapshot)
+                app.database().ref('callbacks').once('value'), function(snapshot)
                 {
                     snapshot.forEach
                     (
