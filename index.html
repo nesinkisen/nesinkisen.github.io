@@ -88,20 +88,8 @@
 
             const db = getDatabase();
 
-            function saveCallback()
-            {
-                var phone = "543";
-
-                set(ref(db, 'callbacks/' + phone),
-                {
-                    phone : phone
-                })
-                .then(()=>
-                {
-                    alert("stored");
-                });
-            }            
-          </script>        
+         
+        </script>        
 
         <script type="text/javascript">
             // Obtain a reference to the platformClient object
@@ -374,6 +362,19 @@
 				})
 				.catch((err) => console.error(err));
 		}
+        function saveCallback()
+            {
+                var phone = "543";
+
+                set(ref(db, 'callbacks/' + phone),
+                {
+                    phone : phone
+                })
+                .then(()=>
+                {
+                    alert("stored");
+                });
+            }           
 
 
         /*
