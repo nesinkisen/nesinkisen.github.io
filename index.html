@@ -144,9 +144,9 @@
                     
                     snapshot.forEach(childSnapShot => 
                     {
-                        AddAllItemsToTable(callbacks);
+                        callbacks.push(childSnapShot.val());
                     });
-
+                    AddAllItemsToTable(callbacks);
                 })
             }
 
