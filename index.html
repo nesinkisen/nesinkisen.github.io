@@ -92,7 +92,7 @@
 
             function saveCallback()
             {
-                set(ref(db, 'callbacks/' + '12345'),
+                set(ref(db, 'callbacks/' + $('#customerId').val()),
                 {
                     phone: $('#phoneNumber').val(),
                     scheduled_time: "2023-07-27T15:30:00"
@@ -107,7 +107,7 @@
             {
                 const dbref = ref(db);
 
-                get(child(dbref, "callbacks/" + phone)).then((snapshot)=>
+                get(child(dbref, "callbacks/" + '12345')).then((snapshot)=>
                 {
                     if(snapshot.exist())
                     {
