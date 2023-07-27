@@ -477,6 +477,29 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }        
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBOG7xTyTBoTSt-R8XJAWY2mHG1jEgNyjk",
+    authDomain: "blazorweb-e36f2.firebaseapp.com",
+    projectId: "blazorweb-e36f2",
+    storageBucket: "blazorweb-e36f2.appspot.com",
+    messagingSenderId: "831465406902",
+    appId: "1:831465406902:web:c3b00d757a11db51510117"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var database = firebase.database();
+
+  function saveCallback()
+  {
+    var phone = "543";
+
+    database.ref('callbacks/' + phone).set({
+        phone : phone
+    })
+  }
         </script>     
         
         <div class="bs-example">
