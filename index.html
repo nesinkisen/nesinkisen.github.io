@@ -423,8 +423,8 @@
                 "integrationPresenceSource": "integrationPresenceSource_example" // String | Get your presence for a given integration. This parameter will only be used when presence is provided as an expand.
                 };
 
-                $('.launch-modal').click(function(){
-                    $('#myModal').modal({
+                $('#btnScheduleCallback').click(function(){
+                    $('#scheduleCallbackModal').modal({
                         backdrop: 'static'
                     });
                 }); 
@@ -602,8 +602,8 @@ function openCity(evt, cityName) {
         
         <div class="bs-example">
             <!-- Button HTML (to Trigger Modal) -->
-            <input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
-            <!--<button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
+            <!--<input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
+            <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
             <button type="button" onclick="btnBusy()" class="btn btn-danger">Busyy</button>
             <button type="button" onclick="btnPreparing()" class="btn btn-warning">Preparing</button>
             <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>-->
@@ -617,7 +617,7 @@ function openCity(evt, cityName) {
             <input type="text" id="txtPhoneNumber" value="+90 543" />-->
             
             <!-- Modal HTML -->
-            <div id="myModal" class="modal fade">
+            <div id="scheduleCallbackModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -666,7 +666,7 @@ function openCity(evt, cityName) {
             <input type="text" id="customerId" name="customerId"><br><br>
             <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
             <button id ="btnSave" type="button" class="btn btn-primary">Schedule Callback</button>
-            <input type="button" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
+            <input type="button" id="btnScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
           </div>
           
           <div id="Tokyo" class="tabcontent">
