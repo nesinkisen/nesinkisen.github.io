@@ -215,7 +215,11 @@
             var phoneNumberKeepFor;
             var scheduledTimeKeepFor;
             var agentNameKeepFor;
-    
+            //npm install -g local-ssl-proxy
+            // local-ssl-proxy --source 6500 --target 5500
+            //const REDIRECT_URI = "https://nesinkisen.github.io";
+            const REDIRECT_URI = "http://localhost:5500";  
+
             $( document ).ready(function() 
             {
                 const client = platformClient.ApiClient.instance;
@@ -225,7 +229,7 @@
 
                 // Create API instance
                 //const usersApi = new platformClient.UsersApi();
-                userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id      
+                userId = "d2dab52a-8588-4942-8d44-fd8a2aa5d4a2"; // String | user Id    
                 
                 userApiInstance = new platformClient.UsersApi();
                 presenceApiInstance = new platformClient.PresenceApi();
@@ -236,7 +240,7 @@
                 outboundApi = new platformClient.OutboundApi();  
 
                 // Authenticate
-                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", "https://nesinkisen.github.io")
+                client.loginImplicitGrant("4661d5c1-d791-478f-b440-3cc36f9cb882", REDIRECT_URI)
                 .then(() => {
                     // Make request to GET /api/v2/users/me?expand=presence
                     return userApiInstance.getUsersMe({ 'expand': ["presence"] });
@@ -433,7 +437,7 @@
                     $('#scheduleCallbackModal').modal('hide');
                 });                
                        
-                var frameWindow = document.getElementById("https://nesinkisen.github.io").contentWindow;
+                var frameWindow = document.getElementById(REDIRECT_URI).contentWindow;
 
                 frameWindow.addEventListener("load"), function(){
                     var doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -607,7 +611,6 @@ function openCity(evt, cityName) {
         </script>     
         
         <div class="bs-example">
-            <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>
             <!-- Button HTML (to Trigger Modal) -->  
             <!--<input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
             <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
@@ -674,7 +677,7 @@ function openCity(evt, cityName) {
         </div>    
         
         <div class="tab">
-            <button id="LondonTab" class="tablinks" onclick="openCity(event, 'London')">Scheduled Callback</button>
+            <button id="LondonTab" class="tablinks" onclick="openCity(event, 'London')">Scheduled Callbacks</button>
             <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')" style="display: none;">Tokyo</button>
           </div>
