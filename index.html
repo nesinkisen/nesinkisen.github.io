@@ -516,7 +516,7 @@
                         openCity(event, 'Paris');
 
                         phoneNumberKeepFor = notification.eventBody.participants[1].address.substr(notification.eventBody.participants[1].address.indexOf(":") + 1)
-                        $("#phoneNumber").val(phoneNumberKeepFor);
+                        $("#phoneNumberTab").val(phoneNumberKeepFor);
                         agentNameKeepFor = notification.eventBody.participants[1].calls[0].other.name;
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
@@ -701,8 +701,10 @@ function openCity(evt, cityName) {
           </div>
           
           <div id="Paris" class="tabcontent">
-            <input type="text" id="customerId" name="customerId"><br><br>
-            <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
+            <div class="form-group">
+                <label for="phoneNumberTab">Contact Number:</label>
+                <p id="phoneNumberTab"></p>
+            </div>
             <!--<button id ="btnSave" type="button" class="btn btn-primary">Schedule Callback</button>-->
             <input type="button" id="btnScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
           </div>
