@@ -30,7 +30,7 @@ function btnAvailable()
             {
 				// Create request body
 				let body = {
-					'phoneNumber':`+905425765206`
+					'phoneNumber':'+905069581010'
 				};
 
 				// Invoke API
