@@ -439,9 +439,6 @@
                     console.warn(target.innerHTML);
                 }
                 
-                window.onload = (event) => {
-                    document.getElementById("LondonTab").click();
-                    };
             });
 ////////////////////////////////////////////////////////////////////////////
         function setPresence(presenceId) {
@@ -595,6 +592,10 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }        
+
+window.onload = (event) => {
+                    document.getElementById("LondonTab").click();
+                    };
         </script>     
         
         <div class="bs-example">
