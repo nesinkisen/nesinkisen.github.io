@@ -636,11 +636,32 @@ function openCity(evt, cityName) {
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                            <button type="button" id="btnSaveScheduleCallback" class="btn btn-primary">Dial Now</button>
+                            <input type="button" id="btnSaveScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div id="popUpModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Scheduled Callback</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Customer Id: 0123943543</p>
+                            <p>Phone: 33333333</p>
+                            <!--<p class="text-danger"><small>16/09/2022 16:35</small></p>-->
+                            <!--<p class="text-info"><small><strong>Note:</strong> All Screen Disabled With This Pop Up</small></p>-->
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                            <button type="button" class="btn btn-primary">Dial Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
         </div>    
         
         <div class="tab">
