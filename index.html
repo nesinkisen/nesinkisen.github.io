@@ -110,9 +110,9 @@
                 set(ref(db, 'callbacks/' + $('#customerId').val()),
                 {
                     customerId: $('#customerId').val(),
-                    phone: $('#phoneNumber').val(),
+                    phone: phoneNumberKeepFor,
                     scheduled_time: "2023-07-27T15:30:00",
-                    agent: agentName,
+                    agent: agentNameKeepFor,
                     status: 'Open'
                 })
                 .then(()=>
@@ -211,7 +211,10 @@
             var me, notificationChannel, conversationsTopic;
             var CONVERSATION_LIST_TEMPLATE = null;
             var conversationList = {};     
-            var agentName;
+            var customerIdKeepFor;
+            var phoneNumberKeepFor;
+            var scheduledTimeKeepFor;
+            var agentNameKeepFor;
     
             $( document ).ready(function() 
             {
@@ -509,8 +512,10 @@
                         document.getElementById("ParisTab").style.display = "inline";
                         $("#ParisTab").css("background-color","yellow");
                         openCity(event, 'Paris');
-                        $("#phoneNumber").val(notification.eventBody.participants[1].address.substr(notification.eventBody.participants[1].address.indexOf(":") + 1));
-                        agentName = notification.eventBody.participants[1].calls[0].other.name;
+
+                        phoneNumberKeepFor = notification.eventBody.participants[1].address.substr(notification.eventBody.participants[1].address.indexOf(":") + 1)
+                        $("#phoneNumber").val(phoneNumberKeepFor);
+                        agentNameKeepFor = notification.eventBody.participants[1].calls[0].other.name;
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
                         console.warn("evreka disconnected")
