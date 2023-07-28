@@ -97,6 +97,7 @@
                     customerId: $('#customerId').val(),
                     phone: $('#phoneNumber').val(),
                     scheduled_time: "2023-07-27T15:30:00",
+                    agent: agentName,
                     status: 'Open'
                 })
                 .then(()=>
@@ -106,7 +107,7 @@
             }      
 
             var tbody = document.getElementById('tbody1');
-            function AddItemToTable(customerId, phone, scheduled_time)
+            function AddItemToTable(customerId, phone, scheduled_time, agent)
             {
                 let trow = document.createElement("tr");
                 let td1 = document.createElement("td");
@@ -116,6 +117,7 @@
                 td1.innerHTML = customerId;
                 td2.innerHTML = phone;
                 td3.innerHTML = scheduled_time;
+                td4.innerHTML = agent;
 
                 trow.appendChild(td1);
                 trow.appendChild(td2);
@@ -129,7 +131,7 @@
                 tbody.innerHTML="";
                 TheCallback.forEach(element =>
                 {
-                    AddItemToTable(element.customerId, element.phone, element.scheduled_time);
+                    AddItemToTable(element.customerId, element.phone, element.scheduled_time, element.agent);
                 })
             }
 
@@ -192,6 +194,7 @@
             var me, notificationChannel, conversationsTopic;
             var CONVERSATION_LIST_TEMPLATE = null;
             var conversationList = {};     
+            var agentName;
     
             $( document ).ready(function() 
             {
@@ -493,6 +496,7 @@
                         $("#ParisTab").css("background-color","yellow");
                         openCity(event, 'Paris');
                         $("#phoneNumber").val(notification.eventBody.participants[1].address.substr(notification.eventBody.participants[1].address.indexOf(":") + 1));
+                        agentName = notification.eventBody.participants[1].calls[0].other.name;
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
                         console.warn("evreka disconnected")
@@ -631,6 +635,7 @@ function openCity(evt, cityName) {
                         <th>Customer ID</th>
                         <th>Phone</th>
                         <th>Scheduled Time</th>
+                        <th>Agent Name</th>
                     </thead>
                     <tbody id="tbody1"></tbody>
                 </table>
