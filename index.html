@@ -427,9 +427,11 @@
                 };
 
                 $('#btnScheduleCallback').click(function(){
-                    $('#scheduleCallbackModal').modal({
+                    $('#scheduleCallbackModal').modal(
+                    {
                         backdrop: 'static'
                     });
+                    $("#phoneNumberModal").val(phoneNumberKeepFor);
                 });
 
                 $('#btnSaveScheduleCallback').click(function() {
@@ -634,8 +636,8 @@ function openCity(evt, cityName) {
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <p>Customer Id: 0123943543</p>
-                            <p>Phone: 33333333</p>
+                            <input type="text" id="customerIdModal" name="customerIdModal"><br><br>
+                            <input type="text" id="phoneNumberModal" name="phoneNumberModal"><br><br>
                             <!--<p class="text-danger"><small>16/09/2022 16:35</small></p>-->
                             <!--<p class="text-info"><small><strong>Note:</strong> All Screen Disabled With This Pop Up</small></p>-->
                         </div>
