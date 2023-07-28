@@ -427,7 +427,11 @@
                     $('#scheduleCallbackModal').modal({
                         backdrop: 'static'
                     });
-                }); 
+                });
+
+                $('#btnSaveScheduleCallback').click(function() {
+                    $('#scheduleCallbackModal').modal('hide');
+                });                
                        
                 var frameWindow = document.getElementById("https://nesinkisen.github.io").contentWindow;
 
@@ -632,7 +636,7 @@ function openCity(evt, cityName) {
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                            <button type="button" class="btn btn-primary">Dial Now</button>
+                            <button type="button" id="btnSaveScheduleCallback" class="btn btn-primary">Dial Now</button>
                         </div>
                     </div>
                 </div>
@@ -665,7 +669,7 @@ function openCity(evt, cityName) {
           <div id="Paris" class="tabcontent">
             <input type="text" id="customerId" name="customerId"><br><br>
             <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
-            <button id ="btnSave" type="button" class="btn btn-primary">Schedule Callback</button>
+            <!--<button id ="btnSave" type="button" class="btn btn-primary">Schedule Callback</button>-->
             <input type="button" id="btnScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
           </div>
           
