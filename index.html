@@ -107,10 +107,10 @@
 
             function saveCallback()
             {
-                set(ref(db, 'callbacks/' + $('#customerId').val()),
+                set(ref(db, 'callbacks/' + $('#customerIdModal').val()),
                 {
-                    customerId: $('#customerId').val(),
-                    phone: phoneNumberKeepFor,
+                    customerId: $('#customerIdModal').val(),
+                    phone: $('#phoneNumberModal').val(),
                     scheduled_time: "2023-07-27T15:30:00",
                     agent: agentNameKeepFor,
                     status: 'Open'
@@ -181,7 +181,7 @@
                 });
             }             
             
-            //btnSave.addEventListener('click', saveCallback);
+            btnSaveScheduleCallback.addEventListener('click', saveCallback);
             btnGet.addEventListener('click', GetCallbacks);
             //btnUpdate.addEventListener('click', updateCallback);
         </script>        
@@ -636,8 +636,6 @@ function openCity(evt, cityName) {
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-
-
                             <div class="form-group">
                                 <label for="customerIdModal">Customer Id:</label>
                                 <input type="text" id="customerIdModal" name="customerIdModal"><br><br>
