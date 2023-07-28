@@ -278,8 +278,8 @@
 					// Create notification channel
 					return notificationsApi.postNotificationsChannels();
 				})
-				/*.then((channel) => {
-					console.log('channel: ', channel);
+				.then((channel) => {
+					console.log('channelStatus: ', channel);
 					notificationChannel = channel;
 
 					// Set up web socket
@@ -294,14 +294,9 @@
 					const body = [ { id: userPresenceTopic } ];
 					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
 				})
-				.then((channel) => {
-					console.log('Channel subscriptions set successfully');
-
-				})
-                */ 
-                .then((channel) => {
-                    console.log('channelCall: ', channel);
-                    notificationChannel = channel;
+                .then((channelCall) => {
+                    console.log('channelCall: ', channelCall);
+                    notificationChannel = channelCall;
 
                     // Set up web socket
                     webSocket = new WebSocket(notificationChannel.connectUri);
@@ -612,6 +607,7 @@ function openCity(evt, cityName) {
         </script>     
         
         <div class="bs-example">
+            <button type="button" onclick="btnMakeCall()" class="btn btn-secondary">Make a Call</button>
             <!-- Button HTML (to Trigger Modal) -->
             <!--<input type="button" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
             <button type="button" onclick="btnAvailable()" class="btn btn-success">Available</button>
