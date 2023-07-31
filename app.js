@@ -26,11 +26,11 @@ function btnAvailable()
             };  
 
 			// Handle dial button click
-			function btnMakeCall()
+			function MakeCall(phone)
             {
 				// Create request body
 				let body = {
-					'phoneNumber':'+905069581010'
+					'phoneNumber':phone
 				};
 
 				// Invoke API
