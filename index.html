@@ -67,6 +67,7 @@
         </style>        
     </head>
     <body>
+        <img src="Sunrise_Image.jpg" height="60" width="300">
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
         <script src="//sdk-cdn.mypurecloud.com/client-apps/1.3.0/purecloud-client-app-sdk.js"></script>
         <script src="https://sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>
@@ -124,7 +125,8 @@
                     phone: $('#phoneNumberModal').val(),
                     scheduled_time: $("#datetimepicker1").find("input").val(),
                     agent: agentNameKeepFor,
-                    status: 'Open'
+                    status: 'Open',
+                    notes: $('#notesModal').val()
                 })
                 .then(()=>
                 {
@@ -133,23 +135,45 @@
             }      
 
             var tbody = document.getElementById('tbody1');
-            function AddItemToTable(customerId, phone, scheduled_time, agent)
+            function AddItemToTable(customerId, phone, scheduled_time, agent, dueIn, notes, backgroundColor)
             {
                 let trow = document.createElement("tr");
+
+                let dynamicImage = document.createElement('img');
+                dynamicImage.src = "perform_image.png";
+                dynamicImage.style.width = "35px";
+                dynamicImage.style.height = "35px";
+                dynamicImage.setAttribute("id", customerId);
+                dynamicImage.style.cursor = "pointer";
+                dynamicImage.onclick= function () 
+                {
+                    updateCallbackById(dynamicImage.getAttribute("id"));
+                };
+
                 let td1 = document.createElement("td");
                 let td2 = document.createElement("td");
                 let td3 = document.createElement("td");
                 let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
+                let td6 = document.createElement("td");
+
+                td5.style.backgroundColor = backgroundColor;
+                td5.style.color = "white";
 
                 td1.innerHTML = customerId;
                 td2.innerHTML = phone;
                 td3.innerHTML = scheduled_time;
                 td4.innerHTML = agent;
+                td5.innerHTML = dueIn;
+                td6.innerHTML = notes;
 
+                trow.appendChild(dynamicImage);
                 trow.appendChild(td1);
                 trow.appendChild(td2);
                 trow.appendChild(td3);
                 trow.appendChild(td4);
+                trow.appendChild(td5);
+                trow.appendChild(td6);
 
                 tbody.appendChild(trow);
             }
@@ -159,13 +183,14 @@
                 tbody.innerHTML="";
                 TheCallback.forEach(element =>
                 {
-                    AddItemToTable(element.customerId, element.phone, element.scheduled_time, element.agent);
+                    AddItemToTable(element.customerId, element.phone, element.scheduled_time, element.agent, element.dueIn, element.notes, element.backgroundColor);
                 })
             }
 
             function GetCallbacks()
             {
                 const dbRef = ref(db);
+                var indexCount = 0; //fix it
 
                 get(child(dbRef, "callbacks"))
                 .then((snapshot)=>
@@ -185,6 +210,13 @@
                             var timeDiff = scheduledDateTime.getTime() - dateNow.getTime();
                             timeDiff = Math.floor(timeDiff / 1000 / 60) + 1;
 
+                            var dueIn;
+                            var colorDesc;
+                            dueIn = dueInCalculation(timeDiff);
+                            colorDesc = colorCalculation(timeDiff);
+                            Object.assign(callbacks[indexCount], {"dueIn": dueIn});
+                            Object.assign(callbacks[indexCount], {"backgroundColor": colorDesc});
+
                             if(timeDiff <= 2)
                             {
                                 $('#popUpModal').modal(
@@ -196,28 +228,59 @@
                                 $('#lblPhoneNumberPopUp').text(childSnapShot.val().phone);
                                 $('#lblScheduledTimePopUp').text(childSnapShot.val().scheduled_time);
                                 $('#lblAgentNamePopUp').text(childSnapShot.val().agent);
+                                $('#lblAgentNamePopUp').text(childSnapShot.val().agent);
+                                $('#lblNotesPopUp').text(childSnapShot.val().notes);
+                                $('#tdSubjectPopUp').text("Site id: " + childSnapShot.val().customerId);
+                                $('#tdDueInPopUp').text(dueIn);
+
                             }
+                            indexCount++;
                         }
                     });
                     AddAllItemsToTable(callbacks);
                 })
             }
 
+            function colorCalculation(diffMinutes)
+            {
+                if(diffMinutes >= 60)
+                    return "#A3D300";
+                else if (diffMinutes >= 30 && diffMinutes < 60)
+                    return "#B6CF04";
+                else if (diffMinutes >= 10 && diffMinutes < 30)
+                    return "#2FED00";
+                else if (diffMinutes >= 0 && diffMinutes < 10)
+                    return "#ED8500";                    
+                else if (diffMinutes < 0)
+                    return "#B01500";                                        
+            }
+
             function updateCallback()
             {
-                set(ref(db, 'callbacks/' + $("#lblCustomerIdPopUp").text()),
+                update(ref(db, 'callbacks/' + $("#lblCustomerIdPopUp").text()),
                 {
-                    agent: $("#lblAgentNamePopUp").text(),
-                    customerId: $("#lblCustomerIdPopUp").text(),
-                    phone: $("#lblPhoneNumberPopUp").text(),
-                    scheduled_time: $("#lblScheduledTimePopUp").text(),
                     status: 'Closed'
                 })
                 .then(()=>
                 {
                     
                 });
-            }             
+            }     
+            
+            function updateCallbackById(customerId)
+            {
+                const date = new Date();
+                date.setMinutes(date.getMinutes() + 2);
+
+                update(ref(db, 'callbacks/' + customerId),
+                {
+                    scheduled_time: dateFormat(date)
+                })
+                .then(()=>
+                {
+                    GetCallbacks();
+                });
+            }              
             
             btnSaveScheduleCallback.addEventListener('click', saveCallback);
             btnGet.addEventListener('click', GetCallbacks);
@@ -491,7 +554,15 @@
                     callbackOrNot = true;
                     MakeCall($("#lblPhoneNumberPopUp").text());
                     $('#popUpModal').modal('hide');
-                });                                
+                });    
+
+                $('#btnCloseCloseTab').click(function() 
+                {
+                    $("#CloseCallbackTab").css("display", "none");
+                    $("#CloseCallback").css("display", "none");
+                    document.getElementById("LondonTab").click();
+                    document.getElementById("btnGet").click();
+                });                
                        
                 var frameWindow = document.getElementById(REDIRECT_URI).contentWindow;
 
@@ -569,12 +640,13 @@
                         {
                             console.warn("evreka connected");
                             document.getElementById("ParisTab").style.display = "inline";
-                            $("#ParisTab").css("background-color","yellow");
+                            $("#ParisTab").css("background-color","gold");
                             openCity(event, 'Paris');
 
                             phoneNumberKeepFor = notification.eventBody.participants[1].address.substr(notification.eventBody.participants[1].address.indexOf(":") + 1)
                             document.getElementById('lblPhoneNumberTab').innerHTML = phoneNumberKeepFor;
                             agentNameKeepFor = notification.eventBody.participants[1].calls[0].other.name;
+                            document.getElementById('lblInteractionIdTab').innerHTML = notification.eventBody.participants[1].calls[0].id;
                         }
                     }
                     else if (notification.eventBody.participants[1].calls[0].state =="disconnected")
@@ -583,10 +655,11 @@
                         {
                             console.warn("evreka disconnected")
                             document.getElementById("CloseCallbackTab").style.display = "inline";
-                            $("#CloseCallbackTab").css("background-color","yellow");
+                            $("#CloseCallbackTab").css("background-color","gold");
                             openCity(event, 'CloseCallback');
 
                             $("#txtClosePhoneNumberTab").val($("#lblPhoneNumberPopUp").text());
+                            $("#txtCloseCustomerIdTab").val($("#lblCustomerIdPopUp").text());
 
                             callbackOrNot = false;
                         }
@@ -679,9 +752,12 @@ function openCity(evt, cityName) {
             document.getElementById("LondonTab").click();
             document.getElementById("btnGet").click();
         };      
-        $(function() {
+        $(function() 
+        {
+            var dateNow = new Date();
             $('#datetimepicker1').datetimepicker({
-                format : 'YYYY-MM-DD HH:mm'
+                format : 'YYYY-MM-DD HH:mm',
+                defaultDate: dateNow
             });
         });
         var intervalId = window.setInterval(function()
@@ -699,6 +775,8 @@ function openCity(evt, cityName) {
                     $('#popUpModal').modal('hide');
                     document.getElementById("btnDialNow").click(); 
                 }
+                else
+                    $('#tdDueInPopUp').text(dueInCalculation(timeDiff));
             }
             else
                 document.getElementById("btnGet").click();
@@ -724,38 +802,58 @@ function openCity(evt, cityName) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Scheduled Callback</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title" style="font-weight: bolder;">Scheduled Callback</h3>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="customerIdModal">Customer Id:</label>
-                                <input type="text" id="customerIdModal" name="customerIdModal"><br><br>
-                            </div>     
-                            <div class="form-group">
-                                <label for="phoneNumberModal">Contact Number:</label>
-                                <input type="text" id="phoneNumberModal" name="phoneNumberModal"><br><br>
-                            </div>                                                     
-                            <section class="col-sm-12">
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker1'>
-                                        <input type='text' class="form-control" />
-                                        <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </section>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="customerIdModal">Customer Id:</label><br><br>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="customerIdModal" name="customerIdModal"><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="phoneNumberModal">Contact Number:</label><br><br>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="phoneNumberModal" name="phoneNumberModal"><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="scheduleTimeModal">Schedule Time:</label><br>
+                                        </td>     
+                                        <td>
+                                            <div class="form-group">
+                                                <div class='input-group date' id='datetimepicker1'>
+                                                    <input type='text' class="form-control" />
+                                                    <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>                           
+                                    </tr>     
+                                    <tr>
+                                        <td>
+                                            <label for="notesModal">Notes:</label><br>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="notesModal" name="notesModal"><br><br>
+                                        </td>
+                                    </tr>  
+                                </table>  
+                            </div>                             
                             <!--<p class="text-danger"><small>16/09/2022 16:35</small></p>-->
                             <!--<p class="text-info"><small><strong>Note:</strong> All Screen Disabled With This Pop Up</small></p>-->
                         </div>
                         <div class="modal-footer">
-                            <div>
-                                <input type="button" id="btnCloseScheduleCallback" class="btn btn-lg btn-secondary" value="Close">
-                            </div>
-                            <div>
-                                <input type="button" id="btnSaveScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
-                            </div>    
+                            <button type="button" id="btnCloseScheduleCallback" class="btn btn-danger btn-primary mr-auto">Cancel</button>
+                            <button type="button" id="btnSaveScheduleCallback" class="btn btn-info btn-secondary">Schedule Callback</button>
                         </div>
                     </div>
                 </div>
@@ -765,25 +863,39 @@ function openCity(evt, cityName) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Scheduled Callback</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title" style="font-weight: bolder;">Callback Reminder</h3>
                         </div>
                         <div class="modal-body" style="padding:4px;">
-                            <label>Customer Id:</label>
+                            <tr>Customer Id:</tr>
                             <label id="lblCustomerIdPopUp"></label>                       
                         </div>                        
                         <div class="modal-body" style="padding:4px;">
-                            <label>Contact Number:</label>
+                            <tr>Contact Number:</tr>
                             <label id="lblPhoneNumberPopUp"></label>
                         </div>
                         <div class="modal-body" style="padding:4px;">
-                            <label>Scheduled Time:</label>
+                            <tr>Scheduled Time:</tr>
                             <label id="lblScheduledTimePopUp"></label>
                         </div>     
                         <div class="modal-body" style="padding:4px;">
-                            <label>Agent:</label>
+                            <tr>Agent:</tr>
                             <label id="lblAgentNamePopUp"></label>
-                        </div>                                            
+                        </div>     
+                        <div class="modal-body" style="padding:4px;">
+                            <tr>Notes:</tr>
+                            <label id="lblNotesPopUp"></label>
+                        </div>   
+                        </br>
+                        <table class="table table-bordered">
+                            <thead style="background-color: lemonchiffon;">
+                                <th>Subject</th>
+                                <th>Due in</th>
+                            </thead>
+                            <thead>
+                                <td id="tdSubjectPopUp"></td>
+                                <td id="tdDueInPopUp"></td>
+                            </thead>                            
+                        </table>                                                                                      
                         <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                             <button type="button" id="btnDialNow" class="btn btn-primary">Dial Now</button>
@@ -792,44 +904,65 @@ function openCity(evt, cityName) {
                 </div>
             </div>            
         </div>    
-        
+
         <div class="tab">
             <button id="LondonTab" class="tablinks" onclick="openCity(event, 'London')">Scheduled Callbacks</button>
-            <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none;">New Callback</button>
-            <button id="CloseCallbackTab" class="tablinks" onclick="openCity(event, 'CloseCallback')" style="display: none;">Close Callback</button>
+            <button id="ParisTab" class="tablinks" onclick="openCity(event, 'Paris')" style="display: none; border-style: inset;">New Callback</button>
+            <button id="CloseCallbackTab" class="tablinks" onclick="openCity(event, 'CloseCallback')" style="display: none; border-style: inset;">Close Callback</button>
           </div>
 
           <div id="London" class="tabcontent">
             <button id ="btnGet" class="btnIcon"><i class="fa fa-refresh"></i></button>
-            <div>
-                <table class="table table-bordered" style="background-color: bisque;">
+            <div style="border-style: ridge;">
+                <table class="table table-fixed" style="background-color: bisque;">
                     <thead>
+                        <th></th>
                         <th>Customer ID</th>
                         <th>Phone</th>
                         <th>Scheduled Time</th>
                         <th>Agent Name</th>
+                        <th>Due in</th>
+                        <th>Notes</th>
                     </thead>
                     <tbody id="tbody1" style="background-color: white;"></tbody>
                 </table>
+                <br>
             </div>
             <!--<button id ="btnUpdate" type="button" class="btn btn-primary">Update Callback</button>-->
           </div>
           
           <div id="Paris" class="tabcontent">
             <div class="form-group">
-                <label>Contact Number:</label>
+                <tr>Name:</tr>
+                <label>Engels Michael</label>
+            </div>               
+            <div class="form-group">
+                <tr>Contact Number:</tr>
                 <label id="lblPhoneNumberTab" name="phoneNumberTab"></label>
             </div>
+            <div class="form-group">
+                <tr>Workgroup:</tr>
+            </div>   
+            <div class="form-group">
+                <tr>Interaction Id:</tr>
+                <label id="lblInteractionIdTab" name="interactionIdTab"></label>
+            </div>                     
             <input type="button" id="btnScheduleCallback" class="btn btn-lg btn-primary launch-modal" value="Schedule Callback">
           </div>
           
           <div id="CloseCallback" class="tabcontent">
             <div class="form-group">
+                <label>Site Id:</label>
+                <input type="text" id="txtCloseCustomerIdTab"><br>               
                 <label>Contact Number:</label>
-                <input type="text" id="txtClosePhoneNumberTab" name="phoneNumberTab"><br><br>
+                <input type="text" id="txtClosePhoneNumberTab"><br>
             </div>
-            <input type="button" id="btnSaveCloseCallback" class="btn btn-primary" value="Save">
-          </div>     
+            <div class="form-group">
+                <input type="radio" name="colors" id="red">Request Solved<br>
+                <input type="radio" name="colors" id="blue">Customer Not Reached
+            </div>     
+            <br>
+            <button type="button" id="btnCloseCloseTab" class="btn btn-info btn-secondary">Save</button>
     </body>
     
 </html> 

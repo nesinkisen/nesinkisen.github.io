@@ -78,4 +78,35 @@ function scheduleCallback()
     document.getElementById("ParisTab").style.display = "none";
     document.getElementById("Paris").style.display = "none";
     $("#LondonTab").css("background-color","yellow");
-}            
+}       
+
+function dueInCalculation(diffMinutes)
+{
+    if (diffMinutes < 0) //overdue
+    {
+        if (diffMinutes > -60)
+        return Math.abs(diffMinutes) + " minutes overdue";
+        else
+        return Math.round(Math.abs(diffMinutes / 60)) + " hour(s) overdue";
+    }
+    else //due in
+    {
+        if (diffMinutes < 60)
+        return "due in " + diffMinutes + " minutes";
+        else
+        return "due in " + Math.round(Math.abs(diffMinutes / 60)) + " hour(s)";
+    }
+}
+
+function dateFormat(dateTime)
+{
+    var month = dateTime.getMonth() + 1;
+
+    var formattedDateTime = dateTime.getFullYear() + "-" + 
+    (month < 10 ? "0" + month : month) + "-" + 
+    (dateTime.getDate() < 10 ? "0" + dateTime.getDate() : dateTime.getDate()) + " " +
+    (dateTime.getHours() < 10 ? "0" + dateTime.getHours() : dateTime.getHours()) + ":" + 
+    (dateTime.getMinutes() < 10 ? "0" + dateTime.getMinutes() : dateTime.getMinutes());
+
+    return formattedDateTime;
+}
