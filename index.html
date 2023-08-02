@@ -248,7 +248,7 @@
                 else if (diffMinutes >= 30 && diffMinutes < 60)
                     return "#B6CF04";
                 else if (diffMinutes >= 10 && diffMinutes < 30)
-                    return "#2FED00";
+                    return "limegreen";
                 else if (diffMinutes >= 0 && diffMinutes < 10)
                     return "#ED8500";                    
                 else if (diffMinutes < 0)
@@ -374,7 +374,7 @@
 					// Get authenticated user's data, including current presence
 					return userApiInstance.getUsersMe({ expand: ['presence'] });
 				})
-				.then((userMe) => {
+				.then(async (userMe) => {
 					me = userMe;
 
 					
@@ -382,9 +382,14 @@
 					$('#currentPresence').text(presences[me.presence.presenceDefinition.id].languageLabels.en_US);
 
 					// Create notification channel
-					return notificationsApi.postNotificationsChannels();
+                    
+					const channel = await notificationsApi.postNotificationsChannels();
+                    console.log("channel: ", channel);
+                    
+
+                    return channel;
 				})
-				/*.then((channel) => {
+				/*.then(async (channel) => {
 					console.log('channelStatus: ', channel);
 					notificationChannel = channel;
 
@@ -398,7 +403,11 @@
                     //userPresenceTopic = `v2.users.30a95f8c-d73e-463f-a72c-bff2c10925bc.presence`;
                     //userPresenceTopic = `v2.analytics.conversation.${me.id}.metrics`;
 					const body = [ { id: userPresenceTopic } ];
-					return notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
+					
+                    const putChannel = await notificationsApi.putNotificationsChannelSubscriptions(notificationChannel.id, body);
+                    console.log("putChannel", putChannel);
+
+                    return putChannel;
 				})*/
                 .then((channelCall) => {
                     console.log('channelCall: ', channelCall);
