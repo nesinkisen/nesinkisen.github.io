@@ -86,13 +86,14 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>        
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
 
-        <script src="https://apps.mypurecloud.ie"></script>  
+        <!--<script src="https://apps.mypurecloud.ie"></script>-->
         <script src="app.js"></script>
         <script src="dialer.js"></script>
         <script type="module">
             // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
           
@@ -108,19 +109,18 @@
             };
           
             // Initialize Firebase
-            var app = initializeApp(firebaseConfig);
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            db.settings({timestampsInSnapshots:true});
 
             import {getDatabase, ref, get, set, child, update, remove}
             from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
-
-            const db = getDatabase();
 
             var btnSave = document.getElementById("btnSave");
 
             function saveCallback()
             {
-                set(ref(db, 'callbacks/' + $('#customerIdModal').val()),
-                {
+                db.collection("callbacks").doc($('#customerIdModal').val()).set({
                     customerId: $('#customerIdModal').val(),
                     phone: $('#phoneNumberModal').val(),
                     scheduled_time: $("#datetimepicker1").find("input").val(),
@@ -128,10 +128,6 @@
                     status: 'Open',
                     notes: $('#notesModal').val()
                 })
-                .then(()=>
-                {
-                    
-                });
             }      
 
             var tbody = document.getElementById('tbody1');
@@ -189,21 +185,20 @@
 
             function GetCallbacks()
             {
-                const dbRef = ref(db);
-                var indexCount = 0; //fix it
+                var indexCount = 0; //fix it               
 
-                get(child(dbRef, "callbacks"))
+                db.collection('callbacks').get()
                 .then((snapshot)=>
                 {
-                    var callbacks = [];
+                    var callbacks = [];                  
                     
-                    snapshot.forEach(childSnapShot => 
+                    snapshot.docs.forEach(childSnapShot => 
                     {
-                        if(childSnapShot.val().status == "Open")
+                        if(childSnapShot.data().status == "Open" && childSnapShot.data().agent == me.name)
                         {
-                            callbacks.push(childSnapShot.val());
+                            callbacks.push(childSnapShot.data());
                             
-                            var scheduledDateTime = new Date(childSnapShot.val().scheduled_time.replace(" ", "T"));
+                            var scheduledDateTime = new Date(childSnapShot.data().scheduled_time.replace(" ", "T"));
 
                             const dateNow = new Date();
 
@@ -224,13 +219,13 @@
                                     backdrop: 'static'
                                 });
 
-                                $('#lblCustomerIdPopUp').text(childSnapShot.val().customerId);
-                                $('#lblPhoneNumberPopUp').text(childSnapShot.val().phone);
-                                $('#lblScheduledTimePopUp').text(childSnapShot.val().scheduled_time);
-                                $('#lblAgentNamePopUp').text(childSnapShot.val().agent);
-                                $('#lblAgentNamePopUp').text(childSnapShot.val().agent);
-                                $('#lblNotesPopUp').text(childSnapShot.val().notes);
-                                $('#tdSubjectPopUp').text("Site id: " + childSnapShot.val().customerId);
+                                $('#lblCustomerIdPopUp').text(childSnapShot.data().customerId);
+                                $('#lblPhoneNumberPopUp').text(childSnapShot.data().phone);
+                                $('#lblScheduledTimePopUp').text(childSnapShot.data().scheduled_time);
+                                $('#lblAgentNamePopUp').text(childSnapShot.data().agent);
+                                $('#lblAgentNamePopUp').text(childSnapShot.data().agent);
+                                $('#lblNotesPopUp').text(childSnapShot.data().notes);
+                                $('#tdSubjectPopUp').text("Site id: " + childSnapShot.data().customerId);
                                 $('#tdDueInPopUp').text(dueIn);
 
                             }
@@ -257,14 +252,9 @@
 
             function updateCallback()
             {
-                update(ref(db, 'callbacks/' + $("#lblCustomerIdPopUp").text()),
-                {
+                db.collection("callbacks").doc($('#lblCustomerIdPopUp').text()).update({
                     status: 'Closed'
-                })
-                .then(()=>
-                {
-                    
-                });
+                })                
             }     
             
             function updateCallbackById(customerId)
@@ -272,14 +262,14 @@
                 const date = new Date();
                 date.setMinutes(date.getMinutes() + 2);
 
-                update(ref(db, 'callbacks/' + customerId),
+                db.collection("callbacks").doc(customerId).update(
                 {
                     scheduled_time: dateFormat(date)
-                })
+                })    
                 .then(()=>
                 {
                     GetCallbacks();
-                });
+                });                             
             }              
             
             btnSaveScheduleCallback.addEventListener('click', saveCallback);
